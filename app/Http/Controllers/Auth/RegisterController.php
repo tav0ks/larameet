@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 
 class RegisterController extends Controller
@@ -16,8 +17,16 @@ class RegisterController extends Controller
 
     public function store(RegisterRequest $request)
     {
-        $requestData = $request->all();
+        $requestData = $request->validated();
 
-        User::create($requestData);
+        DB::beginTransaction();
+
+        try {
+            User::create($requestData);
+            DB::commit();
+        } catch (\Exception $exeception) {
+            DB::rollback();
+            return 'Mensagem:' . $exeception->getMessage();
+        }
     }
 }

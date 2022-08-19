@@ -37,21 +37,27 @@
                             <form action="{{ route('auth.register.store') }}" method="POST" class="user">
                                 @csrf
                                 <div class="form-group">
-                                    <input type="text" name="name" class="form-control form-control-user"
-                                        placeholder="Nome" value="{{ old('user.name') }}">
+                                    <input type="text" name="name" placeholder="Nome"
+                                        class="form-control form-control-user {{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                        value="{{ old('name') }}">
+                                    <div class="invalid-feedback">{{ $errors->first('name') }}</div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email" class="form-control form-control-user"
-                                        placeholder="Email">
+                                    <input type="email" name="email"
+                                        class="form-control form-control-user {{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                        placeholder="Email" value="{{ old('email') }}">
+                                    <div class="invalid-feedback">{{ $errors->first('email') }}</div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-6 mb-3">
-                                        <input type="password" name="password" class="form-control form-control-user"
+                                        <input type="password" name="password"
+                                            class="form-control form-control-user {{ $errors->has('password') ? ' is-invalid' : '' }}"
                                             placeholder="Senha">
+                                        <div class="invalid-feedback">{{ $errors->first('password') }}</div>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="password" name="password_confirmation"
-                                            class="form-control form-control-user" placeholder="Repetir a Senha">
+                                        <input class="form-control form-control-user" type="password"
+                                            name="password_confirmation" placeholder="Repetir a Senha">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -60,14 +66,8 @@
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="">Already have an account? Login!</a>
+                                <a class="small" href="">Faça o Login!</a>
                             </div>
-                            @if (\Session::has('success'))
-                                <p style="color:rgb(75, 190, 75)">{{ \Session::get('success') }}</p>
-                            @endif
-                            @if (\Session::has('error'))
-                                <p style="color:rgb(155, 30, 30)">{{ \Session::get('error') }}</p>
-                            @endif
                         </div>
                     </div>
                 </div>
