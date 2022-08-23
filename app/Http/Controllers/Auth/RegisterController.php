@@ -22,13 +22,12 @@ class RegisterController extends Controller
         DB::beginTransaction();
 
         try {
-
             User::create($requestData);
             DB::commit();
 
             return redirect()
                 ->route('auth.login.create')
-                ->with('success', 'Conta criada com sucesso! Efetue o Login');
+                ->with('success', 'Conta criada com sucesso! Efetue o Login!');
         } catch (\Exception $exeception) {
             DB::rollback();
             return 'Mensagem:' . $exeception->getMessage();
