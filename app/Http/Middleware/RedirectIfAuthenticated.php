@@ -19,5 +19,7 @@ class RedirectIfAuthenticated
                 return redirect()->route('user.index');
             }
         }
+
+        return $next($request);
     }
 }

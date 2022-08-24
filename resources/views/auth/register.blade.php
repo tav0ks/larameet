@@ -30,11 +30,7 @@
             <div class="card-body ">
                 <div class="row">
                     <div class="col-12">
-<<<<<<< HEAD
                         <div class="p-3">
-=======
-                        <div class="p-5">
->>>>>>> a875b7d438a38c2e34c4db4d1c2a95929cdcf116
                             <div class="text-center">
                                 <h2 class="text-gray-900 mb-4">Criar Usuario</h2>
                             </div>
@@ -70,11 +66,9 @@
                             </form>
                             <hr>
                             <div class="text-center">
-<<<<<<< HEAD
-                                <a class="small" href="{{ route('auth.login.create') }}">Faça o Login!</a>
-=======
-                                <a class="small" href="">Faça o Login!</a>
->>>>>>> a875b7d438a38c2e34c4db4d1c2a95929cdcf116
+                                <a class="small" href="{{ route('auth.login.create') }}">Faça o
+                                    Login!
+                                </a>
                             </div>
                         </div>
                     </div>
