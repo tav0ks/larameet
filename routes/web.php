@@ -33,3 +33,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
     Route::post('meets', [MeetController::class, 'store'])
         ->name('meets.store');
 });
+
+
+Route::get('pool/index', function(){
+    return view('pool.index');
+});
