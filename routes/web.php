@@ -4,7 +4,10 @@ use App\Http\Controllers\Auth\{
     RegisterController,
     LoginController
 };
-use App\Http\Controllers\User\IndexController;
+use App\Http\Controllers\User\{
+    IndexController,
+    Meet\MeetController
+};
 use Illuminate\Support\Facades\Route;
 
 Route::group(['as' => 'auth.'], function () {
@@ -19,6 +22,14 @@ Route::group(['as' => 'auth.'], function () {
         ->middleware(['auth']);
 });
 
-Route::get('index', [IndexController::class, 'index'])
-    ->name('user.index')
-    ->middleware('auth');
+Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], function () {
+    Route::get('index', [IndexController::class, 'index'])
+        ->name('index');
+
+    Route::get('meets', [MeetController::class, 'index'])
+        ->name('meets.index');
+    Route::get('meets/create', [MeetController::class, 'create'])
+        ->name('meets.create');
+    Route::post('meets', [MeetController::class, 'store'])
+        ->name('meets.store');
+});

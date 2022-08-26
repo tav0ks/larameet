@@ -20,6 +20,12 @@ class User extends Authenticatable
         'password',
     ];
 
+    //relationships
+    public function meet()
+    {
+        return $this->HasMany(Meet::class);
+    }
+
     //mutators
     public function setPasswordAttribute($value)
     {
