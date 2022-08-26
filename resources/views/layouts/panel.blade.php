@@ -36,12 +36,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Meets</span>
-                </a>
-            </li>
+            @yield('lista')
 
             <!-- Divider -->
             <!-- <hr class="sidebar-divider"> -->

@@ -1,12 +1,26 @@
 @extends('layouts.panel')
 @section('title', 'Meets')
+
+@section('lista')
+    <div class="sidebar-brand d-flex align-items-center justify-content-center">
+        <div class="sidebar-brand-icon rotate-n-15">
+        </div>
+        <div class="sidebar-brand-text mx-3">Meets</div>
+    </div>
+    @foreach ($meets as $meet)
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fas fa-fw fa-calendar-alt"></i>
+                <span>{{ $meet->name }} </span>
+            </a>
+        </li>
+    @endforeach
+@endsection
+
+
 @section('content')
     <form>
         <div class="d-flex justify-content-between">
-            <div class="d-flex flex-fill">
-                <input type="text" name="search" class="form-control w-50 mr-2" value="" placeholder="Pesquisar...">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-            </div>
             <a href="{{ route('user.meets.create') }}" class="btn btn-primary">Novo evento</a>
         </div>
     </form>
@@ -14,10 +28,9 @@
         <thead class="thead bg-white">
             <tr>
                 <th>Nome</th>
-                <th>Local</th>
                 <th>Data</th>
-                <th>Fim</th>
                 <th>Pauta</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>

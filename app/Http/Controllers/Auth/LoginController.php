@@ -21,7 +21,7 @@ class LoginController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('user.index');
+            return redirect()->route('user.meets.index');
         }
 
         return redirect()

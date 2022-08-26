@@ -13,7 +13,6 @@ class Meet extends Model
 
     protected $fillable = [
         'name',
-        'location',
         'meet_date',
         'agenda'
     ];
@@ -28,7 +27,7 @@ class Meet extends Model
     //mutators
     public function setMeetDateAttribute($value)
     {
-        $this->attributes['meet_date'] = Carbon::createFromFormat('d/m/Y H:i', $value)
+        $this->attributes['meet_date'] = Carbon::createFromFormat('d/m/Y', $value)
             ->format('Y-m-d H:i:s');
     }
 }

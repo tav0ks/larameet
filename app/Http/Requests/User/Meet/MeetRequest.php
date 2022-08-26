@@ -15,19 +15,11 @@ class MeetRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'location' => 'required',
             'meet_date' => [
                 'required',
-                'date_format:d/m/Y H:i'
+                'date_format:d/m/Y'
             ],
-            'participants_number' => [
-                'nullable',
-                'integer'
-            ],
-            'cod' => 'required',
-            'agenda' => 'required',
-            'creator_id' => 'required',
-
+            'agenda' => 'required'
         ];
     }
 }

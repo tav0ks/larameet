@@ -10,16 +10,21 @@ class MeetController extends Controller
 {
     public function index()
     {
-        return view('user.meets.index');
+        return view('user.meets.index', [
+            'meets' => Meet::all()
+        ]);
     }
 
     public function create()
     {
-        return view('user.meets.create');
+        return view('user.meets.create', [
+            'meets' => Meet::all()
+        ]);
     }
 
     public function store(MeetRequest $request)
     {
+
         Meet::create($request->validated());
 
         return redirect()
