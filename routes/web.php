@@ -32,4 +32,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
         ->name('meets.create');
     Route::post('meets', [MeetController::class, 'store'])
         ->name('meets.store');
+    Route::get('meets/{name}', [MeetController::class, 'meet'])
+        ->name('meets.meet');
+    Route::get('meets/{name}/create', [MeetController::class, 'create_horario'])
+        ->name('meets.meet.create');
+    Route::get('meets/{name}/store', [MeetController::class, 'store_horario'])
+        ->name('meets.meet.store');
 });

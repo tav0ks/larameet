@@ -13,21 +13,12 @@ class Meet extends Model
 
     protected $fillable = [
         'name',
-        'meet_date',
         'agenda'
     ];
 
     //relationships
-
-    public function user()
+    public function horario()
     {
-        return $this->BelongsTo(User::class);
-    }
-
-    //mutators
-    public function setMeetDateAttribute($value)
-    {
-        $this->attributes['meet_date'] = Carbon::createFromFormat('d/m/Y', $value)
-            ->format('Y-m-d H:i:s');
+        return $this->hasMany(Horario::class);
     }
 }
