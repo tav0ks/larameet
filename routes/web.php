@@ -39,3 +39,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
     Route::get('meets/{name}/store', [MeetController::class, 'store_horario'])
         ->name('meets.meet.store');
 });
+
+
+Route::get('pool/index', function(){
+    return view('pool.index');
+});
