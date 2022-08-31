@@ -8,18 +8,12 @@
 
     <link rel="stylesheet" href="{{ asset('css/sb-admin-2.min.css') }}">
 
-    <style>
-        #main_content .hidden_desc {
-            display: none;
-            visibility: hidden;
-        }
-    </style>
 
 </head>
 
 <body onload="page_open()">
-    <div class="container border border-dark rounded-2 mt-3 pt-3 pb-4 theme">
-        <div class="row theme justify-content-around">
+    <div class="container border border-dark rounded-3 mt-3 pt-3 pb-4 theme">
+        <div class="row theme">
 
             {{-- Nome da pool --}}
             <div class="col">
@@ -35,101 +29,135 @@
 
         </div>
 
-        {{-- <div class="row justify-content-start theme">
-        <div class="col">
-          <form action="">
-            <button class="btn btn-success" href="#">Edit</button>
-          </form>
+        <div class="row justify-content-start theme">
+            <div class="col">
+                <form action="">
+                    <button class="btn btn-success" href="#">Edit</button>
+                </form>
 
-          <!--Pessoas participantes-->
-          <i class="fa-solid fa-user"></i>
-          <!--adicionar contador-->
+                <!--Pessoas participantes-->
+                <i class="fa-solid fa-user"></i>
+                <!--adicionar contador-->
+            </div>
         </div>
-      </div> --}}
 
         {{-- conteudo da pagina --}}
-        <div class="content-wrapper theme" id="main_content">
-            <div class="row justify-content-start gx-1">
 
-                <div class="col">
-                    <p class="selected btn btn-info" id="page1" onclick="change_tab(this.id);">
-                        Tabela
-                    </p>
-
-                    <p class="notselected btn btn-info" id="page2" onclick="change_tab(this.id);">
-                        Administrador
-                    </p>
-                </div>
-                <div class="col">
-
-                </div>
-
+        {{-- botoes para collapse --}}
+        <div class="row">
+            <div class="col">
+                <p>
+                    <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseFormParticipant"
+                        aria-expanded="false" role="button" aria-controls="collappseFormParticipant">Inserir
+                        participante</button>
+                    <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseFormDate"
+                        aria-expanded="false" role="button" aria-controls="collappseFormData">Inserir novo
+                        horário</button>
+                </p>
             </div>
 
-            <div class="hidden_desc" id="page1_desc">
-                <div class="card theme">
-                    <div class="card-header theme">
-                        <h2 class="theme">Tabela de pool</h2>
-                    </div>
+        </div>
 
-                    <div class="card-body">
+        {{-- conteudo collapse --}}
+        <div class="row mb-2">
+            <div class="collapse col-12" id="collapseFormParticipant">
+                <div class="col-12 card card-body">
+                    <form action="{{route('pool.topics.store')}}" method="post">
+                        <div class="row">
+                            <div class="col-9">
+                                <input type="text" class="form-control" placeholder="Nome do participante">
+                            </div>
 
-                        <table class="table theme" aria-label="." id="tabelaPool">
-                            <thead>
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary">
+                                    Adicionar participante
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
-                                <tr>
-                                    <th scope="col">
-                                        {{-- {{()}} --}}
-                                    </th>
-                                </tr>
+            <div class="collapse col-12" id="collapseFormDate">
+                <div class="card card-body">
+                    <form action="{{route('pool.dates.store')}}" method="post">
+                        <div class="row justify-content-center">
 
-                                <tr>
-                                    <th scope="col">PARTICIPANTES</th>
-                                    {{-- @foreach ($events as $item)
+                            <div class="col-md-6">
+                                <label for="start_date" class="form-label">Data de início</label>
+                                <input class="form-control" type="text" name="start_date" id="start_date" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="start_date_hour" class="form-label">Hora de início</label>
+                                <input class="form-control" type="text" name="start_date_hour"
+                                    id="start_date_hour" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="end_date" class="form-label">Data de fim</label>
+                                <input class="form-control" type="text" name="end_date" id="end_date" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="end_date_hour" class="form-label">Hora de encerramento</label>
+                                <input class="form-control" type="text" name="end_date_hour" id="end_date_hour" />
+                            </div>
+
+                            <div class="col mt-1">
+                                <button type="submit" class="btn btn-info pt-1">
+                                    Adicionar data
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card-body border border-gray">
+
+                    <table class="table theme" aria-label="." id="tabelaPool">
+                        <thead>
+
+                            <tr>
+                                <th scope="col">PARTICIPANTES</th>
+                                <th scope="col">
+                                    {{-- {{()}} --}}
+                                </th>
+                            </tr>
+
+                            <tr>
+                                
+                                {{-- @foreach ($events as $item)
                                               <th scope="col">{{ $item->start_date }}</th>
                                               <th scope="col">{{ $item->end_date }}</th>
                                           @endforeach --}}
-                                </tr>
+                            </tr>
 
-                            </thead>
-                            <tbody>
-                                <tr>
+                        </thead>
+                        <tbody>
+                            <tr>
 
-                                    <form action="" method="post" id="formUsuario">
-                                        
-                                            <input class="form-control" type="text" name="user" id="user"
-                                                placeholder="Nome do participante">
-                                        
-                                            <button type="submit" class="btn">Adicionar</button>
-                                        
-                                    </form>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
                 </div>
-
             </div>
-
-            <div class="hidden_desc" id="page2_desc">
-
-                @include('pool.paginas.page2_desc')
-
-            </div>
-
-            <div class="theme" id="page_content"></div>
-
         </div>
     </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
     </script>
     <script src="{{ asset('js/scrip.js') }}"></script>
-    <script src="{{ asset('js/scriptData.js') }}"></script>
-    <script src="{{ asset('js/scriptUsuario.js') }}"></script>
 </body>
 
 </html>
