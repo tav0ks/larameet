@@ -9,8 +9,7 @@
     <meta name="author" content="">
 
     <title>LaraMeet - @yield('title')</title>
-
-    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <script src="https://kit.fontawesome.com/b0bdbef673.js" crossorigin="anonymous"></script>
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -36,11 +35,24 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            @yield('lista')
+            <div class="sidebar-brand d-flex align-items-center justify-content-center">
+                Meets
+            </div>
 
-            <!-- Divider -->
-            <!-- <hr class="sidebar-divider"> -->
-
+            @foreach ($meets as $meet)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('user.meets.meet', $meet->name) }}">
+                        <i class="fas fa-fw fa-calendar-alt"></i>
+                        <span>{{ $meet->name }} </span>
+                    </a>
+                </li>
+            @endforeach
+            <li class="nav-item">
+                <a href="{{ route('user.meets.create') }}" class="nav-link">
+                    <i class="fa-solid fa-plus"></i>
+                    Novo Meet
+                </a>
+            </li>
         </ul>
         <!-- End of Sidebar -->
 
