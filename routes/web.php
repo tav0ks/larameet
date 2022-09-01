@@ -4,11 +4,7 @@ use App\Http\Controllers\Auth\{
     RegisterController,
     LoginController
 };
-use App\Http\Controllers\Pool\{
-    DataController,
-    PoolController,
-    TopicController
-};
+
 use App\Http\Controllers\User\{
     IndexController,
     Meet\MeetController
@@ -43,11 +39,4 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
         ->name('meets.meet.create');
     Route::get('meets/{name}/store', [MeetController::class, 'store_horario'])
         ->name('meets.meet.store');
-});
-
-Route::group(['prefix' => 'pool', 'as' => 'pool.'], function () {
-    Route::get('index', [PoolController::class, 'index'])->name('index');
-    Route::post('',[PoolController::class, 'store'])->name('store');
-    Route::post('data', [DataController::class, 'store'])->name('dates.store');
-    Route::post('topics', [TopicController::class, 'store'])->name('topics.store');
 });
