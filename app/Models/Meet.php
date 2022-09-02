@@ -13,10 +13,16 @@ class Meet extends Model
 
     protected $fillable = [
         'name',
-        'agenda'
+        'agenda',
+        'user_id'
     ];
 
     //relationships
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function horario()
     {
         return $this->hasMany(Horario::class);

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->dateTime('meet_end');
             $table->unsignedBigInteger('meet_id');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('meet_id')->references('id')->on('meets');
         });

@@ -5,6 +5,17 @@
 
 @section('content')
     <table class="table mt-4">
+        @if (session()->has('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session()->has('warning'))
+            <div class="alert alert-warning">
+                {{ session('warning') }}
+            </div>
+        @endif
         <thead class="thead bg-white">
             <tr>
                 <th>Data</th>

@@ -7,6 +7,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="form-group">
+                    <input type="hidden" name="meet[user_id]">
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
                     <label for="name">Nome</label>
                     <input type="text" name="meet[name]"
                         class="form-control {{ $errors->has('meet.name') ? ' is-invalid' : '' }}"

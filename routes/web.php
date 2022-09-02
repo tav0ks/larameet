@@ -36,11 +36,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
         ->name('meets.meet');
     Route::get('meets/{name}/create', [MeetController::class, 'create_horario'])
         ->name('meets.meet.create');
-    Route::get('meets/{name}/store', [MeetController::class, 'store_horario'])
+    Route::post('meets/{name}/store', [MeetController::class, 'store_horario'])
         ->name('meets.meet.store');
 });
 
 
-Route::get('pool/index', function(){
+Route::get('pool/index', function () {
     return view('pool.index');
 });

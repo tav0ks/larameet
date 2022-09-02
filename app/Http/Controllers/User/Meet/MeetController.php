@@ -14,6 +14,7 @@ use App\Http\Requests\User\Meet\{
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class MeetController extends Controller
 {
@@ -44,11 +45,13 @@ class MeetController extends Controller
 
     public function store(MeetRequest $request)
     {
-
         $requestData = $request->validated();
+
+        $requestData['meet']['user_id'] = Auth::id();
 
         DB::beginTransaction();
         try {
+
             $meet = Meet::create($requestData['meet']);
 
             $meet->horario()->create($requestData['horario']);
@@ -71,10 +74,12 @@ class MeetController extends Controller
         ]);
     }
 
-    public function store_horario(HorarioRequest $request, $name)
-    {
-        dd($name);
+    // public function store_horario(HorarioRequest $request, $name)
+    // {
+    //     $requestData = $request->validated();
 
-        $requestData = $request->validated();
-    }
+    //     $horario = Horario::create($requestData);
+
+    //     $horario['meet_id'] = Meet::where('user_id', Auth::id())->id()->get();
+    // }
 }
