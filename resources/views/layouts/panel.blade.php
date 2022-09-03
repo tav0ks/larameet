@@ -40,12 +40,14 @@
             </div>
 
             @foreach ($meets as $meet)
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('user.meets.meet', $meet->name) }}">
-                        <i class="fas fa-fw fa-calendar-alt"></i>
-                        <span>{{ $meet->name }} </span>
-                    </a>
-                </li>
+                @if ($meet->user_id == Auth::id())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.meets.meet', $meet->name) }}">
+                            <i class="fas fa-fw fa-calendar-alt"></i>
+                            <span>{{ $meet->name }} </span>
+                        </a>
+                    </li>
+                @endif
             @endforeach
             <li class="nav-item">
                 <a href="{{ route('user.meets.create') }}" class="nav-link">

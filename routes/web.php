@@ -39,13 +39,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
         ->name('meets.meet.create');
     Route::post('meets/{name}/store', [MeetController::class, 'store_horario'])
         ->name('meets.meet.store');
-<<<<<<< HEAD
 });
 
 
 Route::get('pool/index', function () {
     return view('pool.index');
 });
-=======
-});
->>>>>>> bb30f474f296220a99d817e27817e9df73d21aae
