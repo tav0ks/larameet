@@ -2,7 +2,7 @@
 @section('title', 'Novo Horario')
 
 @section('content')
-    <form action="" method="POST" class="user">
+    <form action="{{ route('user.meets.meet.store', 'id') }}" method="POST" class="user">
         @csrf
         <div class="row">
             <div class="col-lg-12">

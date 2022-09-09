@@ -42,7 +42,7 @@
             @foreach ($meets as $meet)
                 @if ($meet->user_id == Auth::id())
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.meets.meet', $meet->name) }}">
+                        <a class="nav-link" href="{{ route('user.meets.meet', $meet->id) }}">
                             <i class="fas fa-fw fa-calendar-alt"></i>
                             <span>{{ $meet->name }} </span>
                         </a>

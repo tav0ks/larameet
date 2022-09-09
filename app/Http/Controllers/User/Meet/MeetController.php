@@ -18,15 +18,15 @@ use Illuminate\Support\Facades\Auth;
 
 class MeetController extends Controller
 {
-    public function meet($name)
+    public function meet($id)
     {
-        $url_name = Meet::where('name', $name)->get();
+        $url_id = Meet::where('id', $id)->get();
 
         $meets = Meet::all();
 
-        $horarios = Horario::all()->where('meet_id', $url_name[0]->id);
+        $horarios = Horario::all()->where('meet_id', $url_id[0]->id);
 
-        return view('user.meets.meet', compact('url_name', 'meets', 'horarios', 'name'));
+        return view('user.meets.meet', compact('url_id', 'meets', 'horarios'));
     }
 
     public function index()
@@ -45,6 +45,7 @@ class MeetController extends Controller
 
     public function store(MeetRequest $request)
     {
+        
         $requestData = $request->validated();
 
         $requestData['meet']['user_id'] = Auth::id();
@@ -74,12 +75,16 @@ class MeetController extends Controller
         ]);
     }
 
-    // public function store_horario(HorarioRequest $request, $name)
-    // {
-    //     $requestData = $request->validated();
+    public function store_horario(HorarioRequest $request, $id)
+    {
+        $requestData = $request->validated();
 
-    //     $horario = Horario::create($requestData);
+        $horario = Horario::create($requestData);
+        
+        $horario['meet_id'] = $id;
 
-    //     $horario['meet_id'] = Meet::where('user_id', Auth::id())->id()->get();
-    // }
+        
+
+
+    }
 }
