@@ -18,15 +18,15 @@ use Illuminate\Support\Facades\Auth;
 
 class MeetController extends Controller
 {
-    public function meet($id)
+    public function index_horarios($id)
     {
-        $url_id = Meet::where('id', $id)->get();
+        $meet = Meet::find($id);
 
         $meets = Meet::all();
 
-        $horarios = Horario::all()->where('meet_id', $url_id[0]->id);
+        $horarios = Horario::where('meet_id', $meet->id)->get();
 
-        return view('user.meets.meet', compact('url_id', 'meets', 'horarios'));
+        return view('user.meets.meet', compact('meet', 'meets', 'horarios'));
     }
 
     public function index()
@@ -68,23 +68,24 @@ class MeetController extends Controller
         }
     }
 
-    public function create_horario()
+    public function create_horario($id)
     {
-        return view('user.meets.create_horario', [
-            'meets' => Meet::all()
-        ]);
+        $meet = Meet::find($id);
+        $meets = Meet::all();
+
+        return view('user.meets.create_horario', compact('meet','meets'));
     }
 
     public function store_horario(HorarioRequest $request, $id)
     {
-        $requestData = $request->validated();
-
+        $meet = Meet::find($id);
+        $request->request->add(['meet_id' => $meet->id]);
+        // $req = $request->add(['meet_id' => $meet->id]);
+        $requestData = $request->all();
         $horario = Horario::create($requestData);
-        
-        $horario['meet_id'] = $id;
 
-        
-
+        return redirect()
+                ->route('user.meets.meet', compact ('id'));
 
     }
 }

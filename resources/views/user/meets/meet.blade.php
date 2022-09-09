@@ -1,6 +1,6 @@
 @extends('layouts.panel')
 @section('title')
-    {{ $url_id[0]->name }}
+    {{ $meet->name }}
 @endsection
 
 @section('content')
@@ -34,6 +34,6 @@
         </tbody>
     </table>
     <div class="d-flex justify-content-between">
-        <a href="{{ route('user.meets.meet.create', $url_id[0]->id) }}" class="btn btn-primary">Novo Horario</a>
+        <a href="{{ route('user.meets.meet.create', $meet->id) }}" class="btn btn-primary">Novo Horario</a>
     </div>
 @endsection

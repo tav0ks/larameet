@@ -15,15 +15,15 @@ class HorarioRequest extends FormRequest
     public function rules()
     {
         return [
-            'horario.meet_date' => [
+            'meet_date' => [
                 'required',
                 'date_format:d/m/Y'
             ],
-            'horario.meet_start' => [
+            'meet_start' => [
                 'required',
                 'date_format:H:i'
             ],
-            'horario.meet_end' => [
+            'meet_end' => [
                 'required',
                 'date_format:H:i'
             ],

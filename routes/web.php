@@ -32,10 +32,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.meets.']
     Route::post('meets', [MeetController::class, 'store'])
         ->name('store');    
 
-    Route::get('{id}/horarios', [MeetController::class, 'meet'])
+    Route::get('{id}/horarios', [MeetController::class, 'index_horarios'])
         ->name('meet');
     Route::get('{id}/horario/create', [MeetController::class, 'create_horario'])
         ->name('meet.create');
     Route::post('{id}/horario/store', [MeetController::class, 'store_horario'])
         ->name('meet.store');
 });
+
+
