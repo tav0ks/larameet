@@ -16,7 +16,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect()->route('user.index');
+                return redirect()->route('user.meets.index');
             }
         }
 

@@ -23,21 +23,24 @@ Route::group(['as' => 'auth.'], function () {
         ->middleware(['auth']);
 });
 
-Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.meets.'], function () {
+Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('meets', [MeetController::class, 'index'])
-        ->name('index');
-    Route::get('meets/create', [MeetController::class, 'create'])
-        ->name('create');
-    Route::post('meets', [MeetController::class, 'store'])
-        ->name('store');    
+    Route::group(['prefix' => 'user', 'as' => 'user.meets.'], function () {
+        Route::get('meets', [MeetController::class, 'index'])
+            ->name('index');
+        Route::get('meets/create', [MeetController::class, 'create'])
+            ->name('create');
+        Route::post('meets', [MeetController::class, 'store'])
+            ->name('store');
+    });
 
-    Route::get('{id}/horarios', [MeetController::class, 'index_horarios'])
-        ->name('meet');
-    Route::get('{id}/horario/create', [MeetController::class, 'create_horario'])
-        ->name('meet.create');
-    Route::post('{id}/horario/store', [MeetController::class, 'store_horario'])
-        ->name('meet.store');
+    Route::group(['prefix' => 'meet', 'as' => 'horario.'], function () {
+
+        Route::get('{id}/horarios', [MeetController::class, 'index_horarios'])
+            ->name('meet');
+        Route::get('{id}/horario/create', [MeetController::class, 'create_horario'])
+            ->name('meet.create');
+        Route::post('{id}/horario/store', [MeetController::class, 'store_horario'])
+            ->name('meet.store');
+    });
 });
-
-

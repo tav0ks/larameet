@@ -34,6 +34,6 @@
         </tbody>
     </table>
     <div class="d-flex justify-content-between">
-        <a href="{{ route('user.meets.meet.create', $meet->id) }}" class="btn btn-primary">Novo Horario</a>
+        <a href="{{ route('horario.meet.create', $meet->id) }}" class="btn btn-primary">Novo Horario</a>
     </div>
 @endsection

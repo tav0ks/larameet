@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <form action="{{ route('user.meets.meet.store', $meet->id) }}" method="POST" class="user">
+    <form action="{{ route('horario.meet.store', $meet->id) }}" method="POST" class="user">
         @csrf
         <div class="row">
             <div class="col-lg-12">
