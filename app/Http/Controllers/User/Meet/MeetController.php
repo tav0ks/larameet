@@ -4,7 +4,8 @@ namespace App\Http\Controllers\User\Meet;
 
 use App\Models\{
     Meet,
-    Horario
+    Horario,
+    Participant
 };
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Meet\{
@@ -14,6 +15,7 @@ use App\Http\Requests\User\Meet\{
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class MeetController extends Controller
@@ -62,9 +64,12 @@ class MeetController extends Controller
         $meet = Meet::find($id);
         $meets = Meet::all();
 
+        $participants = Participant::where('meet_id', $meet->id)->get();
         $horarios = Horario::where('meet_id', $meet->id)->get();
 
-        return view('user.meets.meet', compact('meet', 'meets', 'horarios'));
+        $tamanho = count($horarios);
+
+        return view('user.meets.meet', compact('meet', 'meets', 'horarios', 'tamanho', 'participants'));
     }
 
     public function create_horario($id)
@@ -77,13 +82,18 @@ class MeetController extends Controller
 
     public function store_horario(HorarioRequest $request, $id)
     {
-        $meet = Meet::find($id);
-        $request->request->add(['meet_id' => $meet->id]);
-        // $req = $request->add(['meet_id' => $meet->id]);
-        $requestData = $request->all();
-        $horario = Horario::create($requestData);
+        try {
+            $meet = Meet::find($id);
+            $request->request->add(['meet_id' => $meet->id]);
+            // $req = $request->add(['meet_id' => $meet->id]);
+            $requestData = $request->all();
+            $horario = Horario::create($requestData);
 
-        return redirect()
-            ->route('horario.meet', compact('id'));
+            return redirect()
+                ->route('horario.meet', compact('id'));
+        } catch (Exception $exception) {
+            DB::rollBack();
+            return 'Mensagem: ' . $exception->getMessage();
+        }
     }
 }

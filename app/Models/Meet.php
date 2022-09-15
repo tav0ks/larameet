@@ -27,4 +27,9 @@ class Meet extends Model
     {
         return $this->hasMany(Horario::class);
     }
+
+    public function participant()
+    {
+        return $this->belongsToMany(Participant::class);
+    }
 }
