@@ -25,7 +25,7 @@ class ParticipantController extends Controller
                 ->route('horario.meet', compact('id'));
                 
         } catch (Exception $exception) {
-            DB::rollBack();
+            // DB::rollBack();
             return 'Mensagem: ' . $exception->getMessage();
         }
     }

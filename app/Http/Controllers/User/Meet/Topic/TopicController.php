@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Topic;
+namespace App\Http\Controllers\User\Meet\Topic;
 
 use App\Http\Controllers\Controller;
 use App\Models\{Meet, Topic};
@@ -16,12 +16,12 @@ class TopicController extends Controller
             $request->request->add(['meet_id' => $meet->id]);
             $requestData = $request->all();
 
-            $participant = Topic::create($requestData);
+            $topic = Topic::create($requestData);
 
             return redirect()
                 ->route('horario.meet', $id);
         } catch (Exception $exception) {
-            DB::rollBack();
+            // DB::rollBack();
             return 'Mensagem: ' . $exception->getMessage();
         }
     }
