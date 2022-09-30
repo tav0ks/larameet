@@ -7,9 +7,11 @@ use App\Http\Controllers\Auth\{
 
 use App\Http\Controllers\User\{
     IndexController,
-    Meet\MeetController
+    Meet\MeetController,
+    Meet\Participant\ParticipantController,
+    Meet\Topic\TopicController
 };
-use App\Http\Controllers\User\Meet\Participant\ParticipantController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -50,4 +52,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::post('meet/{id}/participant', [ParticipantController::class, 'store'])->name('store');
     });
+
+    Route::post('meet/{$id}/topic', [TopicController::class, 'store'])->name('topic.store');
 });

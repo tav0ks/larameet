@@ -5,7 +5,8 @@ namespace App\Http\Controllers\User\Meet;
 use App\Models\{
     Meet,
     Horario,
-    Participant
+    Participant,
+    Topic
 };
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Meet\{
@@ -66,10 +67,11 @@ class MeetController extends Controller
 
         $participants = Participant::where('meet_id', $meet->id)->get();
         $horarios = Horario::where('meet_id', $meet->id)->get();
+        $topics = Topic::where('meet_id', $meet->id)->get();
 
         $tamanho = count($horarios);
 
-        return view('user.meets.meet', compact('meet', 'meets', 'horarios', 'tamanho', 'participants'));
+        return view('user.meets.meet', compact('meet', 'meets', 'horarios', 'tamanho', 'topics', 'participants'));
     }
 
     public function create_horario($id)

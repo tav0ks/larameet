@@ -32,4 +32,9 @@ class Meet extends Model
     {
         return $this->belongsToMany(Participant::class);
     }
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
 }
