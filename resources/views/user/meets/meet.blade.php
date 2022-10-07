@@ -70,8 +70,8 @@
                                     {{ $participant->name }}
                                 </th>
                                 @foreach ($horarios as $h)
-                                    <td scope="col" colspan="1">
-                                        <button id="voto" class="btn btn-danger btn-user btn-block"></button>
+                                    <td scope="col" colspan="1" class="align-items-end">
+                                        <button id="voto"></button>
                                     </td>
                                 @endforeach
                             </tr>
@@ -86,6 +86,8 @@
         <div class="col">
             <div class="collapse" id="form-horario">
                 <div class="mt-2 card card-body">
+                    <h4 class="mb-0 font-weight-bold text-primary">Novo Horário</h4>
+                    <hr>
                     <form class="form" action="{{ route('horario.meet.store', $meet->id) }}" method="post">
                         @csrf
                         <div class="form-group">
@@ -120,6 +122,8 @@
         <div class="col">
             <div class="collapse multi-collapse" id="form-participant">
                 <div class="mt-2 card card-body">
+                    <h4 class="mb-0 font-weight-bold text-primary">Novo Participante</h4>
+                    <hr>
                     <form class="form" action="{{ route('participant.store', $meet->id) }}" method="post">
                         @csrf
                         <input type="text" name="name" class="form-control mb-2" placeholder="Nome">
@@ -132,6 +136,8 @@
         <div class="col">
             <div class="collapse multi-collapse" id="form-topic">
                 <div class="mt-2 card card-body">
+                    <h4 class="mb-0 font-weight-bold text-primary">Novo Tópico</h4>
+                    <hr>
                     <form class="form" action="{{ route('topic.store', $meet->id) }}" method="post">
                         @csrf
                         <input type="text" name="topico" class="form-control mb-2" placeholder="Tópico">
@@ -145,8 +151,10 @@
 
 
     <script>
-        $("#voto").click(function() {
-            $(this).toggleClass('btn btn-success btn-user btn-block');
+        const btn = document.getElementById('voto');
+
+        btn.addEventListener('click', function onClick() {
+            btn.style.color = 'green';
         });
     </script>
 @endsection
