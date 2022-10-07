@@ -19,7 +19,7 @@ class TopicController extends Controller
             $participant = Topic::create($requestData);
 
             return redirect()
-                ->route('horario.meet', compact('id'));
+                ->route('horario.meet', $id);
         } catch (Exception $exception) {
             DB::rollBack();
             return 'Mensagem: ' . $exception->getMessage();

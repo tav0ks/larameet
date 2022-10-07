@@ -14,20 +14,39 @@
     @endif
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">{{ $meet->name }}</h6>
+            <div class="row ml-1 align-items-center">
+
+                <h4 class="m-0 mr-2 font-weight-bold text-primary">{{ strtoupper($meet->name) }} |</h4>
+
+                <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-horario"
+                    aria-expanded="false" aria-controls="form-horario">
+                    Novo Horario
+                </button>
+
+                <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-participant"
+                    aria-expanded="false" aria-controls="form-participant">
+                    Adicionar Particpante
+                </button>
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-topic"
+                    aria-expanded="false" aria-controls="form-topic">
+                    Adicionar Tópico
+                </button>
+            </div>
         </div>
         <div class="card-body">
-            <div class="col-12">
-                <ul class="list-group">
-                    <li class="list-group-item">{{ $meet->agenda }}</li>
-                    @foreach ($topics as $topic)
-                        <li class="list-group-item">{{ $topic->topico }}</li>
-                    @endforeach
-                </ul>
-            </div>
             <div class="table-responsive">
+                
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
+                    <tr>
+                        <ul class="list-group">
+                            <li class="list-group-item">{{ $meet->agenda }}</li>
+                            @foreach ($topics as $topic)
+                                <li class="list-group-item">{{ $topic->topico }}</li>
+                            @endforeach
+                        </ul>
+                    </tr>
                         <tr>
                             <th class="text-center" colspan="{{ $tamanho + 1 }}">Horários</th>
                         </tr>
@@ -61,67 +80,6 @@
                 </table>
             </div>
         </div>
-    </div>
-    {{-- <table class=" table mt-4 table-dark">
-        <thead class="thead-dark ">
-
-            <tr class="">
-                <th class="text-center" colspan="{{$tamanho+1}}">Horários</th>
-            </tr>
-
-            <tr>
-                <th scope="col" colspan="1">Participantes</th>
-
-                @for ($i = 0, $tamanho = count($horarios); $i < $tamanho; ++$i)
-                    <th scope="col">
-
-                        {{ $horarios[$i]->meet_date_formatted }}
-                        {{ $horarios[$i]->meet_start_formatted }}
-                        {{ $horarios[$i]->meet_end_formatted }}
-                    </th>
-                @endfor
-
-            </tr>
-
-        </thead>
-        <tbody>
-            @foreach ($participants as $participant)
-                <tr>
-                    <th class="dark" scope="row">
-                        {{ $participant->name }}
-                    </th>
-                    <form action="" method="post">
-                        @foreach ($horarios as $h)
-                            <td scope="col" colspan="1">
-                                <select class="custom-select" id="inputGroupSelect01">
-                                    <option selected>Choose...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </td>
-                        @endforeach
-                    </form>
-                </tr>
-            @endforeach
-        </tbody>
-    </table> --}}
-
-    <div class="row ml-1">
-        <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-horario"
-            aria-expanded="false" aria-controls="form-horario">
-            Novo Horario
-        </button>
-
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-participant"
-            aria-expanded="false" aria-controls="form-participant">
-            Adicionar Particpante
-        </button>
-
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-topic"
-            aria-expanded="false" aria-controls="form-topic">
-            Adicionar Tópico
-        </button>
     </div>
 
     <div class="row">
