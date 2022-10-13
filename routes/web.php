@@ -52,5 +52,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('meet/{id}/participant', [ParticipantController::class, 'store'])->name('store');
     });
 
-    Route::post('meet/{$id}/topic', [TopicController::class, 'store'])->name('topic.store');
+    Route::post('{id}/meet/topic', [TopicController::class, 'store'])->name('topic.store');
 });

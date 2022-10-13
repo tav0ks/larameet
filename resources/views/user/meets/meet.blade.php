@@ -14,20 +14,39 @@
     @endif
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">{{ $meet->name }}</h6>
+            <div class="row ml-1 align-items-center">
+
+                <h4 class="m-0 mr-2 font-weight-bold text-primary">{{ strtoupper($meet->name) }} |</h4>
+
+                <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-horario"
+                    aria-expanded="false" aria-controls="form-horario">
+                    Novo Horario
+                </button>
+
+                <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-participant"
+                    aria-expanded="false" aria-controls="form-participant">
+                    Adicionar Particpante
+                </button>
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-topic"
+                    aria-expanded="false" aria-controls="form-topic">
+                    Adicionar Tópico
+                </button>
+            </div>
         </div>
         <div class="card-body">
-            <div class="col-12">
-                <ul class="list-group">
-                    <li class="list-group-item">{{ $meet->agenda }}</li>
-                    @foreach ($topics as $topic)
-                        <li class="list-group-item">{{ $topic->topico }}</li>
-                    @endforeach
-                </ul>
-            </div>
             <div class="table-responsive">
+
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
+                    <tr>
+                        <ul class="list-group">
+                            <li class="list-group-item">{{ $meet->agenda }}</li>
+                            @foreach ($topics as $topic)
+                                <li class="list-group-item">{{ $topic->topico }}</li>
+                            @endforeach
+                        </ul>
+                    </tr>
                         <tr>
                             <th class="text-center" colspan="{{ $tamanho + 1 }}">Horários</th>
                         </tr>
@@ -51,8 +70,8 @@
                                     {{ $participant->name }}
                                 </th>
                                 @foreach ($horarios as $h)
-                                    <td scope="col" colspan="1">
-                                        <button id="voto" class="btn btn-danger btn-user btn-block"></button>
+                                    <td scope="col" colspan="1" class="align-items-end">
+                                        <button id="voto"></button>
                                     </td>
                                 @endforeach
                             </tr>
@@ -113,7 +132,7 @@
             Novo Horario
         </button>
 
-        <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-participant"
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-participant"
             aria-expanded="false" aria-controls="form-participant">
             Adicionar Particpante
         </button>
@@ -128,6 +147,8 @@
         <div class="col">
             <div class="collapse" id="form-horario">
                 <div class="mt-2 card card-body">
+                    <h4 class="mb-0 font-weight-bold text-primary">Novo Horário</h4>
+                    <hr>
                     <form class="form" action="{{ route('horario.meet.store', $meet->id) }}" method="post">
                         @csrf
                         <div class="form-group">
@@ -162,6 +183,8 @@
         <div class="col">
             <div class="collapse multi-collapse" id="form-participant">
                 <div class="mt-2 card card-body">
+                    <h4 class="mb-0 font-weight-bold text-primary">Novo Participante</h4>
+                    <hr>
                     <form class="form" action="{{ route('participant.store', $meet->id) }}" method="post">
                         @csrf
                         <input type="text" name="name" class="form-control mb-2" placeholder="Nome">
@@ -174,6 +197,8 @@
         <div class="col">
             <div class="collapse multi-collapse" id="form-topic">
                 <div class="mt-2 card card-body">
+                    <h4 class="mb-0 font-weight-bold text-primary">Novo Tópico</h4>
+                    <hr>
                     <form class="form" action="{{ route('topic.store', $meet->id) }}" method="post">
                         @csrf
                         <input type="text" name="topico" class="form-control mb-2" placeholder="Tópico">
@@ -187,8 +212,10 @@
 
 
     <script>
-        $("#voto").click(function() {
-            $(this).toggleClass('btn btn-success btn-user btn-block');
+        const btn = document.getElementById('voto');
+
+        btn.addEventListener('click', function onClick() {
+            btn.style.color = 'green';
         });
     </script>
 @endsection
