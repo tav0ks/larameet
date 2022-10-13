@@ -113,7 +113,7 @@
             Novo Horario
         </button>
 
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-participant"
+        <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-participant"
             aria-expanded="false" aria-controls="form-participant">
             Adicionar Particpante
         </button>

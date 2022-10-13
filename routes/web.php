@@ -49,7 +49,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['as' => 'participant.'], function () {
-
         Route::post('meet/{id}/participant', [ParticipantController::class, 'store'])->name('store');
     });
 
