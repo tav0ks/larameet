@@ -12,11 +12,12 @@
             {{ session('warning') }}
         </div>
     @endif
+
+    <h3 class="mb-2 ml-3 font-weight-bold text-primary">{{ ucfirst($meet->name) }}</h3>
+
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row ml-1 align-items-center">
-
-                <h4 class="m-0 mr-2 font-weight-bold text-primary">{{ strtoupper($meet->name) }} |</h4>
 
                 <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-horario"
                     aria-expanded="false" aria-controls="form-horario">
@@ -39,19 +40,11 @@
 
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                    <tr>
-                        <ul class="list-group">
-                            <li class="list-group-item">{{ $meet->agenda }}</li>
-                            @foreach ($topics as $topic)
-                                <li class="list-group-item">{{ $topic->topico }}</li>
-                            @endforeach
-                        </ul>
-                    </tr>
                         <tr>
                             <th class="text-center" colspan="{{ $tamanho + 1 }}">Horários</th>
                         </tr>
                         <tr>
-                            <th scope="col">Participantes</th>
+                            <th scope="col" class="text-center align-middle">Participantes</th>
 
                             @for ($i = 0, $tamanho = count($horarios); $i < $tamanho; ++$i)
                                 <th scope="col">
@@ -69,15 +62,26 @@
                                 <th class="dark" scope="row">
                                     {{ $participant->name }}
                                 </th>
-                                @foreach ($horarios as $h)
-                                    <td scope="col" colspan="1" class="align-items-end">
-                                        <button id="voto"></button>
+                                @foreach ($horarios as $key => $h)
+                                    <td scope="col" colspan="1" class="text-center align-middle">
+                                        <button type="button" class="btn red btn-block btn-lg"></button>
                                     </td>
                                 @endforeach
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+
+                <hr>
+
+                <h3 class="ml-2 text-left font-weight-bold text-primary">Tópicos</h3>
+
+
+                <ul class="list-group">
+                    @foreach ($topics as $topic)
+                        <li class="list-group-item"> - {{ $topic->topico }}</li>
+                    @endforeach
+                </ul>
             </div>
         </div>
     </div>
@@ -125,23 +129,6 @@
             @endforeach
         </tbody>
     </table> --}}
-
-    <div class="row ml-1">
-        <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-horario"
-            aria-expanded="false" aria-controls="form-horario">
-            Novo Horario
-        </button>
-
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-participant"
-            aria-expanded="false" aria-controls="form-participant">
-            Adicionar Particpante
-        </button>
-
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-topic"
-            aria-expanded="false" aria-controls="form-topic">
-            Adicionar Tópico
-        </button>
-    </div>
 
     <div class="row">
         <div class="col">
@@ -209,13 +196,29 @@
         </div>
     </div>
 
-
-
     <script>
-        const btn = document.getElementById('voto');
-
-        btn.addEventListener('click', function onClick() {
-            btn.style.color = 'green';
+        $('.btn-lg').click(function() {
+            console.log('achou')
+            if($(this).hasClass('green')) {
+                console.log('green')
+                $(this).removeClass('green');
+                $(this).addClass('red');
+            } else if($(this).hasClass('red')){
+                console.log('red')
+                $(this).removeClass('red');
+                $(this).addClass('green');
+            }
         });
+
     </script>
+
+    <style>
+        .green {
+            background-color: rgb(77, 184, 77);
+        }
+
+        .red{
+            background-color: rgb(238, 33, 33);
+        }
+    </style>
 @endsection

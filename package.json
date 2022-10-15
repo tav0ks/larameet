@@ -10,11 +10,9 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "vite": "^3.0.0"
-<<<<<<< HEAD
+
     },
     "dependencies": {
         "jquery": "^3.6.0"
-=======
->>>>>>> a875b7d438a38c2e34c4db4d1c2a95929cdcf116
     }
 }
