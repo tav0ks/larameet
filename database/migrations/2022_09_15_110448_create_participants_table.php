@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->uuid('uuid');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email');
             $table->unsignedBigInteger('meet_id');
             $table->timestamps();

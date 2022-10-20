@@ -11,8 +11,7 @@ use App\Http\Controllers\User\{
     Meet\Participant\ParticipantController,
     Meet\Topic\TopicController
 };
-
-
+use App\Http\Controllers\User\Mail\MailController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['as' => 'auth.'], function () {
@@ -53,4 +52,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::post('{id}/meet/topic', [TopicController::class, 'store'])->name('topic.store');
+
+    route::post('{id}/meet/mailing', [MailController::class, 'email'])->name('enviar.email');
 });

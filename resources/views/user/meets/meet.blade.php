@@ -85,50 +85,6 @@
             </div>
         </div>
     </div>
-    {{-- <table class=" table mt-4 table-dark">
-        <thead class="thead-dark ">
-
-            <tr class="">
-                <th class="text-center" colspan="{{$tamanho+1}}">Horários</th>
-            </tr>
-
-            <tr>
-                <th scope="col" colspan="1">Participantes</th>
-
-                @for ($i = 0, $tamanho = count($horarios); $i < $tamanho; ++$i)
-                    <th scope="col">
-
-                        {{ $horarios[$i]->meet_date_formatted }}
-                        {{ $horarios[$i]->meet_start_formatted }}
-                        {{ $horarios[$i]->meet_end_formatted }}
-                    </th>
-                @endfor
-
-            </tr>
-
-        </thead>
-        <tbody>
-            @foreach ($participants as $participant)
-                <tr>
-                    <th class="dark" scope="row">
-                        {{ $participant->name }}
-                    </th>
-                    <form action="" method="post">
-                        @foreach ($horarios as $h)
-                            <td scope="col" colspan="1">
-                                <select class="custom-select" id="inputGroupSelect01">
-                                    <option selected>Choose...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </td>
-                        @endforeach
-                    </form>
-                </tr>
-            @endforeach
-        </tbody>
-    </table> --}}
 
     <div class="row">
         <div class="col">
@@ -148,7 +104,7 @@
                         <div class="form-group">
                             <label for="name">Início</label>
                             <input type="text" name="meet_start"
-                                class="form-control date {{ $errors->has('meet_start') ? ' is-invalid' : '' }}"
+                                class="form-control date     {{ $errors->has('meet_start') ? ' is-invalid' : '' }}"
                                 value="{{ old('meet_start') }}" data-mask="00:00">
                             <div class="invalid-feedback">{{ $errors->first('meet_start') }}</div>
                         </div>
@@ -170,12 +126,12 @@
         <div class="col">
             <div class="collapse multi-collapse" id="form-participant">
                 <div class="mt-2 card card-body">
-                    <h4 class="mb-0 font-weight-bold text-primary">Novo Participante</h4>
+                    <h4 class="mb-0 font-weight-bold text-primary"> Novo Participante</h4>
                     <hr>
                     <form class="form" action="{{ route('participant.store', $meet->id) }}" method="post">
                         @csrf
-                        <input type="text" name="name" class="form-control mb-2" placeholder="Nome">
-                        <button class="btn btn-primary btn-user btn-block" type="submit">Adicionar</button>
+                        <input type="text" name="email" class="form-control mb-2" placeholder="email">
+                        <button class="btn btn-primary btn-user btn-block" type="submit">enviar convite</button>
                     </form>
                 </div>
             </div>

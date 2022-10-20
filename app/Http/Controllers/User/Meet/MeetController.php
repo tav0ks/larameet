@@ -9,14 +9,14 @@ use App\Models\{
     Topic
 };
 use App\Http\Controllers\Controller;
+
 use App\Http\Requests\User\Meet\{
     MeetRequest,
     HorarioRequest
 };
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 use Exception;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class MeetController extends Controller
@@ -84,13 +84,14 @@ class MeetController extends Controller
 
     public function store_horario(HorarioRequest $request, $id)
     {
+        DB::beginTransaction();
         try {
             $meet = Meet::find($id);
             $request->request->add(['meet_id' => $meet->id]);
             // $req = $request->add(['meet_id' => $meet->id]);
             $requestData = $request->all();
             $horario = Horario::create($requestData);
-
+            DB::commit();
             return redirect()
                 ->route('horario.meet', compact('id'));
         } catch (Exception $exception) {
