@@ -65,7 +65,8 @@ class MeetController extends Controller
         $meet = Meet::find($id);
         $meets = Meet::all();
 
-        $participants = Participant::where('meet_id', $meet->id)->get();
+        $participants = Participant::where('meet_id', $meet->id)->where('name','!=', '')->get();
+
         $horarios = Horario::where('meet_id', $meet->id)->get();
         $topics = Topic::where('meet_id', $meet->id)->get();
 

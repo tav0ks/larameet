@@ -26,7 +26,7 @@
 
                 <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-participant"
                     aria-expanded="false" aria-controls="form-participant">
-                    Adicionar Particpante
+                    Adicionar Participante
                 </button>
 
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-topic"
@@ -131,7 +131,7 @@
                     <form class="form" action="{{ route('participant.store', $meet->id) }}" method="post">
                         @csrf
                         <input type="text" name="email" class="form-control mb-2" placeholder="email">
-                        <button class="btn btn-primary btn-user btn-block" type="submit">enviar convite</button>
+                        <button class="btn btn-primary btn-user btn-block" type="submit">Enviar convite</button>
                     </form>
                 </div>
             </div>

@@ -49,9 +49,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['as' => 'participant.'], function () {
         Route::post('meet/{id}/participant', [ParticipantController::class, 'store'])->name('store');
+        Route::put('meet/{id}/participant{uuid}', [ParticipantController::class, 'update'])->name('update');
     });
 
     Route::post('{id}/meet/topic', [TopicController::class, 'store'])->name('topic.store');
 
-    route::post('{id}/meet/mailing', [MailController::class, 'email'])->name('enviar.email');
 });

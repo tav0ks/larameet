@@ -17,7 +17,7 @@ class Participant extends Model
     ];
 
     protected $primaryKey = 'uuid';
-    protected $incrementing = false;
+    public $incrementing = false;
 
     public function meet()
     {
