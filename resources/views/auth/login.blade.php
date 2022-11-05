@@ -68,6 +68,20 @@
                                 </button>
                             </form>
                             <hr>
+                            <form action="{{ route('auth.uuid.store') }}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <input type="password" name="uuid"
+                                        class="form-control form-control-user {{ $errors->has('uuid') ? ' is-invalid' : '' }}"
+                                        placeholder="UUID">
+                                    <div class="invalid-feedback">{{ $errors->first('uuid') }}</div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    Realizar Login
+                                </button>
+                            </form>
+                            <hr>
                             <div class="text-center">
                                 <a class="small" href="{{ route('auth.register.create') }}">Crie uma conta!</a>
                             </div>

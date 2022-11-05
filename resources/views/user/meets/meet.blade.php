@@ -130,6 +130,7 @@
                     <hr>
                     <form class="form" action="{{ route('participant.store', $meet->id) }}" method="post">
                         @csrf
+                        <input type="hidden" name="is_participant" class="form-control" value="{{1}}">
                         <input type="text" name="email" class="form-control mb-2" placeholder="email">
                         <button class="btn btn-primary btn-user btn-block" type="submit">Enviar convite</button>
                     </form>

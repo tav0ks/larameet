@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\User\Meet\Participant;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ConfimacaoParticipant as ConfirmacaoParticipant;
 use App\Models\Meet;
-use App\Models\Participant;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 class ParticipantController extends Controller
 {
@@ -22,13 +20,14 @@ class ParticipantController extends Controller
             $request->request->add(['meet_id' => $meet->id]);
             $requestData = $request->all();
             
-            $participant = Participant::create([
+            $participant = User::create([
                 'name' => '',
                 'email' => $request->email,
-                'meet_id' => $meet->id
+                'meet_id' => $request->meet_id,
+                'is_participant' => $request->is_participant
             ]);
 
-            Mail::send(new ConfirmacaoParticipant($participant));
+            // Mail::send(new ConfirmacaoParticipant($participant));
             DB::commit();
             
             return redirect()
@@ -40,18 +39,23 @@ class ParticipantController extends Controller
         }
     }
 
-    public function update(Request $request, $id, $uuid)
+    public function edit($uuid)
+    {
+        return view('user.meets.home_participant', compact('uuid'));
+    }
+
+    public function update(Request $request, $uuid)
     {
         DB::beginTransaction();
         try {
-            $meet = Meet::find($id);
-
-            $participant = Participant::find($uuid);
+            $participant = User::where('uuid',$uuid)->first();
             $participant->update([
                 'name' => $request->name
             ]);
+
+            DB::commit();
             return redirect()
-                ->route('horario.meet', compact('id'));
+                ->route('horario.meet', $participant->meet_id);
         } catch (Exception $exception) {
             DB::rollBack();
             return 'Mensagem: ' . $exception->getMessage();

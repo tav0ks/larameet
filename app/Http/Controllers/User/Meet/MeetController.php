@@ -6,7 +6,8 @@ use App\Models\{
     Meet,
     Horario,
     Participant,
-    Topic
+    Topic,
+    User
 };
 use App\Http\Controllers\Controller;
 
@@ -65,7 +66,7 @@ class MeetController extends Controller
         $meet = Meet::find($id);
         $meets = Meet::all();
 
-        $participants = Participant::where('meet_id', $meet->id)->where('name','!=', '')->get();
+        $participants = User::where('meet_id', $meet->id)->where('name','!=', '')->get();
 
         $horarios = Horario::where('meet_id', $meet->id)->get();
         $topics = Topic::where('meet_id', $meet->id)->get();
