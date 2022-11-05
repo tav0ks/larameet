@@ -8,19 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 class Participant extends Model
 {
-    use HasFactory,hasUuid;
+    use HasFactory;
 
     protected $fillable = [
         'name',
+        'email',
         'meet_id'
     ];
 
-    protected $primaryKey = 'uuid';
-    protected $incrementing = false;
-
     public function meet()
     {
-        return $this->belongsToMany(Meet::class);
+        return $this->belongsTo(Meet::class);
     }
 
 }

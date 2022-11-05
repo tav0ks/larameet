@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('meets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('agenda');
+            $table->datetime('duration');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->softDeletes();

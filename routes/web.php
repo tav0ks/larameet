@@ -6,10 +6,10 @@ use App\Http\Controllers\Auth\{
 };
 
 use App\Http\Controllers\User\{
-    IndexController,
     Meet\MeetController,
     Meet\Participant\ParticipantController,
-    Meet\Topic\TopicController
+    Meet\Topic\TopicController,
+    Meet\Horario\HorarioController
 };
 
 
@@ -38,14 +38,16 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('store');
     });
 
-    Route::group(['prefix' => 'meet', 'as' => 'horario.'], function () {
+    Route::group(['prefix' => 'meet', 'as' => 'horarios.'], function () {
 
-        Route::get('{id}/horarios', [MeetController::class, 'index_horarios'])
-            ->name('meet');
-        Route::get('{id}/horario/create', [MeetController::class, 'create_horario'])
-            ->name('meet.create');
-        Route::post('{id}/horario/store', [MeetController::class, 'store_horario'])
-            ->name('meet.store');
+        Route::get('{id}/horarios', [HorarioController::class, 'index'])
+            ->name('index');
+        // Route::get('{id}/horario/create', [HorarioController::class, 'create'])
+        //     ->name('meet.create');
+        Route::post('{id}/horario/store', [HorarioController::class, 'store'])
+            ->name('store');
+        Route::put('{id}/horario/{horario_id}/update', [HorarioController::class, 'update'])
+            ->name('update');
     });
 
     Route::group(['as' => 'participant.'], function () {

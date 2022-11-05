@@ -15,7 +15,10 @@ class MeetRequest extends FormRequest
     {
         return [
             'meet.name' => 'required',
-            'meet.agenda' => 'required',
+            'meet.duration' => [
+                'required',
+                'date_format:H:i'
+            ],
             'horario.meet_date' => [
                 'required',
                 'date_format:d/m/Y'
@@ -23,13 +26,7 @@ class MeetRequest extends FormRequest
             'horario.meet_start' => [
                 'required',
                 'date_format:H:i'
-            ],
-            'horario.meet_end' => [
-                'required',
-                'date_format:H:i'
-            ],
-
-
+            ]
         ];
     }
 }

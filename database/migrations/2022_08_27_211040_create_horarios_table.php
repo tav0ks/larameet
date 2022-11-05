@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->dateTime('meet_date');
             $table->dateTime('meet_start');
-            $table->dateTime('meet_end');
+            $table->integer('votes')->default(0);
             $table->unsignedBigInteger('meet_id');
             $table->timestamps();
             $table->softDeletes();

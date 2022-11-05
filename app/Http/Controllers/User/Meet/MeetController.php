@@ -42,6 +42,7 @@ class MeetController extends Controller
 
         $requestData['meet']['user_id'] = Auth::id();
 
+
         DB::beginTransaction();
         try {
 
@@ -54,45 +55,6 @@ class MeetController extends Controller
             return redirect()
                 ->route('user.meets.index')
                 ->with('success', 'Meet cadastrado');
-        } catch (Exception $exception) {
-            DB::rollBack();
-            return 'Mensagem: ' . $exception->getMessage();
-        }
-    }
-
-    public function index_horarios($id)
-    {
-        $meet = Meet::find($id);
-        $meets = Meet::all();
-
-        $participants = Participant::where('meet_id', $meet->id)->get();
-        $horarios = Horario::where('meet_id', $meet->id)->get();
-        $topics = Topic::where('meet_id', $meet->id)->get();
-
-        $tamanho = count($horarios);
-
-        return view('user.meets.meet', compact('meet', 'meets', 'horarios', 'tamanho', 'topics', 'participants'));
-    }
-
-    public function create_horario($id)
-    {
-        $meet = Meet::find($id);
-        $meets = Meet::all();
-
-        return view('user.meets.create_horario', compact('meet', 'meets'));
-    }
-
-    public function store_horario(HorarioRequest $request, $id)
-    {
-        try {
-            $meet = Meet::find($id);
-            $request->request->add(['meet_id' => $meet->id]);
-            // $req = $request->add(['meet_id' => $meet->id]);
-            $requestData = $request->all();
-            $horario = Horario::create($requestData);
-
-            return redirect()
-                ->route('horario.meet', compact('id'));
         } catch (Exception $exception) {
             DB::rollBack();
             return 'Mensagem: ' . $exception->getMessage();

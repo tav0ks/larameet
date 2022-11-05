@@ -15,200 +15,180 @@
 
     <h3 class="mb-2 ml-3 font-weight-bold text-primary">{{ ucfirst($meet->name) }}</h3>
 
+    <h5 class="mb-2 ml-3 font-weight-bold text-primary">Duração do Meet: {{$meet->duration_formatted}}</h5>
+
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row ml-1 align-items-center">
 
-                <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-horario"
+                <button class="btn btn-primary mr-2" type="button" data-toggle="modal" data-target="#horariosModal"
                     aria-expanded="false" aria-controls="form-horario">
                     Novo Horario
                 </button>
 
-                <button class="btn btn-primary mr-2" type="button" data-toggle="collapse" data-target="#form-participant"
+                <button class="btn btn-primary mr-2" type="button" data-toggle="modal" data-target="#participantModal"
                     aria-expanded="false" aria-controls="form-participant">
-                    Adicionar Particpante
+                    Adicionar Participante
                 </button>
 
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-topic"
+                {{-- <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-topic"
                     aria-expanded="false" aria-controls="form-topic">
                     Adicionar Tópico
-                </button>
+                </button> --}}
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
 
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="text-center" colspan="{{ $tamanho + 1 }}">Horários</th>
-                        </tr>
-                        <tr>
-                            <th scope="col" class="text-center align-middle">Participantes</th>
-
-                            @for ($i = 0, $tamanho = count($horarios); $i < $tamanho; ++$i)
-                                <th scope="col">
-
-                                    <span>Data: </span>{{ $horarios[$i]->meet_date_formatted }} <span> | </span>
-                                    {{ $horarios[$i]->meet_start_formatted }} <span> - </span>
-                                    {{ $horarios[$i]->meet_end_formatted }}
-                                </th>
-                            @endfor
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($participants as $participant)
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
                             <tr>
-                                <th class="dark" scope="row">
-                                    {{ $participant->name }}
-                                </th>
-                                @foreach ($horarios as $key => $h)
-                                    <td scope="col" colspan="1" class="text-center align-middle">
-                                        <button type="button" class="btn red btn-block btn-lg"></button>
-                                    </td>
-                                @endforeach
+                                <th class="text-center" colspan="{{ $tamanho + 1 }}">Escolha do horário</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                            <tr>
+                                <th scope="col-3" class="text-center align-middle">Participantes</th>
 
-                <hr>
+                                @for ($i = 0, $tamanho = count($horarios); $i < $tamanho; ++$i)
+                                    <th scope="col">
 
-                <h3 class="ml-2 text-left font-weight-bold text-primary">Tópicos</h3>
-
-
-                <ul class="list-group">
-                    @foreach ($topics as $topic)
-                        <li class="list-group-item"> - {{ $topic->topico }}</li>
-                    @endforeach
-                </ul>
+                                        <div>{{ $horarios[$i]->meet_date_formatted }}<br></div>
+                                        <div>Início: {{ $horarios[$i]->meet_start_formatted }}</div>
+                                    </th>
+                                @endfor
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($participants as $pKey => $participant)
+                                <tr>
+                                    <th class="dark" scope="row">
+                                        {{ $participant->name }}
+                                    </th>
+                                    @foreach ($horarios as $h)
+                                        <td scope="col" colspan="1" class="text-center align-middle">
+                                            <form method="POST" action="{{ route('horarios.update', [$meet->id, $h->id]) }}">
+                                                @csrf
+                                                @method('PUT')
+                                                <input id="{{ $h->id }}" name="votes" type="hidden" value="1">
+                                                <button type="submit" id="{{ $pKey }}{{ $h->id }} button" onclick="countVote('{{ $pKey }}{{ $h->id }} button', '{{ $h->id }}')" class="btn red btn-block btn-lg"></button>
+                                            </form>
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
             </div>
         </div>
     </div>
-    {{-- <table class=" table mt-4 table-dark">
-        <thead class="thead-dark ">
 
-            <tr class="">
-                <th class="text-center" colspan="{{$tamanho+1}}">Horários</th>
-            </tr>
+    {{-- <div class="col">
+        <div class="collapse multi-collapse" id="form-topic">
+            <div class="mt-2 card card-body">
+                <h4 class="mb-0 font-weight-bold text-primary">Novo Tópico</h4>
+                <hr>
+                <form class="form" action="{{ route('topic.store', $meet->id) }}" method="post">
+                    @csrf
+                    <input type="text" name="topico" class="form-control mb-2" placeholder="Tópico">
+                    <button class="btn btn-primary btn-user btn-block" type="submit">Adicionar</button>
+                </form>
+            </div>
+        </div>
+    </div> --}}
 
-            <tr>
-                <th scope="col" colspan="1">Participantes</th>
+    {{-- MODAL CRIAR PARTICIPANTE --}}
 
-                @for ($i = 0, $tamanho = count($horarios); $i < $tamanho; ++$i)
-                    <th scope="col">
-
-                        {{ $horarios[$i]->meet_date_formatted }}
-                        {{ $horarios[$i]->meet_start_formatted }}
-                        {{ $horarios[$i]->meet_end_formatted }}
-                    </th>
-                @endfor
-
-            </tr>
-
-        </thead>
-        <tbody>
-            @foreach ($participants as $participant)
-                <tr>
-                    <th class="dark" scope="row">
-                        {{ $participant->name }}
-                    </th>
-                    <form action="" method="post">
-                        @foreach ($horarios as $h)
-                            <td scope="col" colspan="1">
-                                <select class="custom-select" id="inputGroupSelect01">
-                                    <option selected>Choose...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </td>
-                        @endforeach
-                    </form>
-                </tr>
-            @endforeach
-        </tbody>
-    </table> --}}
-
-    <div class="row">
-        <div class="col">
-            <div class="collapse" id="form-horario">
-                <div class="mt-2 card card-body">
-                    <h4 class="mb-0 font-weight-bold text-primary">Novo Horário</h4>
-                    <hr>
-                    <form class="form" action="{{ route('horario.meet.store', $meet->id) }}" method="post">
+    <div class="modal fade" id="participantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold text-primary">Adicionar Participante</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form" action="{{ route('participant.store', $meet->id) }}" method="post">
+                    <div class="modal-body">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Data</label>
+                            <input type="text" name="name"
+                                class="form-control form-control-user {{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                placeholder="Nome" value="{{ old('name') }}">
+                            <div class="invalid-feedback">{{ $errors->first('name') }}</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email"
+                                class="form-control form-control-user {{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                placeholder="Email" value="{{ old('email') }}">
+                            <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Criar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- MODAL CRIAR HORARIO --}}
+
+    <div class="modal fade" id="horariosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold text-primary">Adicionar Horário</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form" action="{{ route('horarios.store', $meet->id) }}" method="post">
+                    <div class="modal-body">
+                        @csrf
+                        <div class="form-group">
                             <input type="text" name="meet_date"
                                 class="form-control date {{ $errors->has('meet_date') ? ' is-invalid' : '' }}"
-                                value="{{ old('meet_date') }}" data-mask="00/00/0000">
+                                placeholder="Data" value="{{ old('meet_date') }}" data-mask="00/00/0000">
                             <div class="invalid-feedback">{{ $errors->first('meet_date') }}</div>
                         </div>
                         <div class="form-group">
-                            <label for="name">Início</label>
                             <input type="text" name="meet_start"
                                 class="form-control date {{ $errors->has('meet_start') ? ' is-invalid' : '' }}"
-                                value="{{ old('meet_start') }}" data-mask="00:00">
+                                placeholder="Horário de Início" value="{{ old('meet_start') }}" data-mask="00:00">
                             <div class="invalid-feedback">{{ $errors->first('meet_start') }}</div>
                         </div>
-                        <div class="form-group">
-                            <label for="name">Fim</label>
-                            <input type="text" name="meet_end"
-                                class="form-control date {{ $errors->has('meet_end') ? ' is-invalid' : '' }}"
-                                value="{{ old('meet_end') }}" data-mask="00:00">
-                            <div class="invalid-feedback">{{ $errors->first('meet_end') }}</div>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
                         <button type="submit" class="btn btn-primary btn-user btn-block">
                             Criar!
                         </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="collapse multi-collapse" id="form-participant">
-                <div class="mt-2 card card-body">
-                    <h4 class="mb-0 font-weight-bold text-primary">Novo Participante</h4>
-                    <hr>
-                    <form class="form" action="{{ route('participant.store', $meet->id) }}" method="post">
-                        @csrf
-                        <input type="text" name="name" class="form-control mb-2" placeholder="Nome">
-                        <button class="btn btn-primary btn-user btn-block" type="submit">Adicionar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="collapse multi-collapse" id="form-topic">
-                <div class="mt-2 card card-body">
-                    <h4 class="mb-0 font-weight-bold text-primary">Novo Tópico</h4>
-                    <hr>
-                    <form class="form" action="{{ route('topic.store', $meet->id) }}" method="post">
-                        @csrf
-                        <input type="text" name="topico" class="form-control mb-2" placeholder="Tópico">
-                        <button class="btn btn-primary btn-user btn-block" type="submit">Adicionar</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
     <script>
         $('.btn-lg').click(function() {
-            console.log('achou')
             if($(this).hasClass('green')) {
-                console.log('green')
                 $(this).removeClass('green');
                 $(this).addClass('red');
             } else if($(this).hasClass('red')){
-                console.log('red')
                 $(this).removeClass('red');
                 $(this).addClass('green');
             }
         });
+
+        // function countVote(buttonId, inputId){
+        //    let botao = document.getElementById(buttonId);
+        //    let voto = document.getElementById(inputId);
+        //    if(botao.classList.contains('red')){
+        //         voto.value++;
+        //    }
+        //    if(botao.classList.contains('green')){
+        //         voto.value--;
+        //    }
+        // }
 
     </script>
 

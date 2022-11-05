@@ -14,8 +14,8 @@ class Horario extends Model
     protected $fillable = [
         'meet_date',
         'meet_start',
-        'meet_end',
-        'meet_id',
+        'votes',
+        'meet_id'
     ];
 
     //relationships
@@ -35,11 +35,6 @@ class Horario extends Model
         $this->attributes['meet_start'] = Carbon::createFromFormat('H:i', $value)
             ->format('Y-m-d H:i:s');
     }
-    public function setMeetEndAttribute($value)
-    {
-        $this->attributes['meet_end'] = Carbon::createFromFormat('H:i', $value)
-            ->format('Y-m-d H:i:s');
-    }
 
     //accessors
     public function getMeetDateFormattedAttribute()
@@ -52,8 +47,4 @@ class Horario extends Model
         return Carbon::parse($this->meet_start)->format('H:i');
     }
 
-    public function getMeetEndFormattedAttribute()
-    {
-        return Carbon::parse($this->meet_end)->format('H:i');
-    }
 }

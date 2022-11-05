@@ -14,6 +14,7 @@ class ParticipantController extends Controller
 
     public function store(Request $request, $id)
     {
+
         try {
             $meet = Meet::find($id);
             $request->request->add(['meet_id' => $meet->id]);
@@ -22,8 +23,8 @@ class ParticipantController extends Controller
             $participant = Participant::create($requestData);
 
             return redirect()
-                ->route('horario.meet', compact('id'));
-                
+                ->route('horarios.index', compact('id'));
+
         } catch (Exception $exception) {
             // DB::rollBack();
             return 'Mensagem: ' . $exception->getMessage();

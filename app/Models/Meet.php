@@ -13,7 +13,7 @@ class Meet extends Model
 
     protected $fillable = [
         'name',
-        'agenda',
+        'duration',
         'user_id'
     ];
 
@@ -30,11 +30,25 @@ class Meet extends Model
 
     public function participant()
     {
-        return $this->belongsToMany(Participant::class);
+        return $this->hasMany(Participant::class);
     }
 
     public function topics()
     {
         return $this->hasMany(Topic::class);
     }
+
+    //accessors
+    public function getDurationFormattedAttribute()
+    {
+        return Carbon::parse($this->duration)->format('H:i');
+    }
+
+    //mutators
+    public function setDurationAttribute($value)
+    {
+        $this->attributes['duration'] = Carbon::createFromFormat('H:i', $value)
+            ->format('Y-m-d H:i:s');
+    }
+
 }

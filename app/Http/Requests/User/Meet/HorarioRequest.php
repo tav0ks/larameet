@@ -23,11 +23,6 @@ class HorarioRequest extends FormRequest
                 'required',
                 'date_format:H:i'
             ],
-            'meet_end' => [
-                'required',
-                'date_format:H:i'
-            ],
-
         ];
     }
 }
