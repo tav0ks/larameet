@@ -6,17 +6,18 @@ use App\Models\{
     Meet,
     Horario,
     Participant,
-    Topic
+    Topic,
+    User
 };
 use App\Http\Controllers\Controller;
+
 use App\Http\Requests\User\Meet\{
     MeetRequest,
     HorarioRequest
 };
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 use Exception;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class MeetController extends Controller

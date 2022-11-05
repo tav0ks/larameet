@@ -12,9 +12,11 @@ class Participant extends Model
 
     protected $fillable = [
         'name',
-        'email',
         'meet_id'
     ];
+
+    protected $primaryKey = 'uuid';
+    protected $incrementing = false;
 
     public function meet()
     {

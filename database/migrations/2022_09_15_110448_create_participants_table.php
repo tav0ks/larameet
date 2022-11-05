@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('participants', function (Blueprint $table) {
-            // $table->uuid('uuid');
+            $table->uuid('uuid');
             $table->string('name');
             $table->string('email');
             $table->unsignedBigInteger('meet_id');

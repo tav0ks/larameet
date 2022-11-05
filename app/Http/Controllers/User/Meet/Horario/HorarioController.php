@@ -52,6 +52,7 @@ class HorarioController extends Controller
 
     public function update(Request $request, Meet $meet , Horario $horario)
     {
+
         $request['votes'] = $horario->votes + $request['votes'];
         $horario->update(['votes' => $request['votes']]);
         return redirect()

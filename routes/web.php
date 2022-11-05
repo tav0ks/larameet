@@ -11,8 +11,7 @@ use App\Http\Controllers\User\{
     Meet\Topic\TopicController,
     Meet\Horario\HorarioController
 };
-
-
+use App\Models\Participant;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['as' => 'auth.'], function () {
@@ -21,6 +20,8 @@ Route::group(['as' => 'auth.'], function () {
         Route::post('register', [RegisterController::class, 'store'])->name('register.store');
         Route::get('/', [LoginController::class, 'create'])->name('login.create');
         Route::post('login', [LoginController::class, 'store'])->name('login.store');
+
+        Route::post('login/participant', [LoginController::class, 'uuidStore'])->name('uuid.store');
     });
     Route::post('logout', [LoginController::class, 'destroy'])
         ->name('login.destroy')
@@ -52,7 +53,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['as' => 'participant.'], function () {
         Route::post('meet/{id}/participant', [ParticipantController::class, 'store'])->name('store');
+        Route::put('meet/participant{uuid}', [ParticipantController::class, 'update'])->name('update');
+        Route::get('participant/edit/{uuid}', [ParticipantController::class, 'edit'])->name('edit');
     });
 
     Route::post('{id}/meet/topic', [TopicController::class, 'store'])->name('topic.store');
+
 });

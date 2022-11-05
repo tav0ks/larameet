@@ -110,12 +110,6 @@
                     <div class="modal-body">
                         @csrf
                         <div class="form-group">
-                            <input type="text" name="name"
-                                class="form-control form-control-user {{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                placeholder="Nome" value="{{ old('name') }}">
-                            <div class="invalid-feedback">{{ $errors->first('name') }}</div>
-                        </div>
-                        <div class="form-group">
                             <input type="email" name="email"
                                 class="form-control form-control-user {{ $errors->has('email') ? ' is-invalid' : '' }}"
                                 placeholder="Email" value="{{ old('email') }}">
@@ -154,7 +148,7 @@
                         <div class="form-group">
                             <input type="text" name="meet_start"
                                 class="form-control date {{ $errors->has('meet_start') ? ' is-invalid' : '' }}"
-                                placeholder="Horário de Início" value="{{ old('meet_start') }}" data-mask="00:00">
+                                value="{{ old('meet_start') }}" data-mask="00:00">
                             <div class="invalid-feedback">{{ $errors->first('meet_start') }}</div>
                         </div>
                     </div>

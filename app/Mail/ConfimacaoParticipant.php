@@ -38,9 +38,11 @@ class ConfimacaoParticipant extends Mailable
      */
     public function build()
     {
-        return $this->view('user.mails.participants');
+        $this->subject('Chamada para votação de meet');
+        $this->to($this->participant->email);
+        return $this->view('user.mails.participants',[
+            'uuid' => $this->participant->uuid
+        ]);
     }
-
-    
     
 }
