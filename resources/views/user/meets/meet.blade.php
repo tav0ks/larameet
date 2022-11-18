@@ -1,5 +1,5 @@
 @extends('layouts.panel')
-
+@section('title', $meet->name)
 @section('content')
     {{-- @if (session()->has('success'))
         <div class="alert alert-success">
@@ -31,6 +31,7 @@
                 <form class="form" action="{{ route('participant.store', $meet->id) }}" method="post">
                     <div class="modal-body">
                         @csrf
+                        <input type="hidden" name="is_participant" value="1">
                         <div class="form-group">
                             <input type="email" name="email"
                                 class="form-control form-control-user {{ $errors->has('email') ? ' is-invalid' : '' }}"

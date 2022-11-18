@@ -55,7 +55,7 @@ class ParticipantController extends Controller
 
             DB::commit();
             return redirect()
-                ->route('horario.meet', $participant->meet_id);
+                ->route('horarios.index', $participant->meet_id);
         } catch (Exception $exception) {
             DB::rollBack();
             return 'Mensagem: ' . $exception->getMessage();

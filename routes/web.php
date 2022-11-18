@@ -11,7 +11,7 @@ use App\Http\Controllers\User\{
     Meet\Topic\TopicController,
     Meet\Horario\HorarioController
 };
-use App\Models\Participant;
+
 use Illuminate\Support\Facades\Route;
 
 Route::group(['as' => 'auth.'], function () {
@@ -67,6 +67,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('participant/edit/{uuid}', [ParticipantController::class, 'edit'])->name('edit');
     });
 
-    Route::post('{id}/meet/topic', [TopicController::class, 'store'])->name('topic.store');
+    Route::get('{id}/meet/edit/topic', [TopicController::class, 'edit'])->name('topic.edit');
+    Route::put('{id}/meet/topic', [TopicController::class, 'update'])->name('topic.update');
+    Route::get('{id}/meet/topic', [TopicController::class, 'print'])->name('topic.print');
 
 });

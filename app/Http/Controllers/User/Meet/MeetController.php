@@ -5,12 +5,15 @@ namespace App\Http\Controllers\User\Meet;
 use App\Models\{
     Meet,
     Horario,
+    Participant,
+    Topic,
     User
 };
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\User\Meet\{
     MeetRequest,
+    HorarioRequest
 };
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -43,6 +46,10 @@ class MeetController extends Controller
         DB::beginTransaction();
         try {
             $meet = Meet::create($requestData);
+            Topic::create([
+                'pauta' => '', //TODO terminar a entrada padrão da 'folha'
+                'meet_id' => $meet->id,
+            ]);
 
             DB::commit();
 
@@ -68,7 +75,7 @@ class MeetController extends Controller
         DB::beginTransaction();
         try {
             $meet->update($requestData);
-
+            // $participants = User::where
             DB::commit();
 
             $user = User::find(Auth::id());

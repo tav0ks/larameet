@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('topics', function (Blueprint $table) {
-            $table->string('topico');
+            $table->longText('pauta')->nullable();
             $table->unsignedBigInteger('meet_id');
             $table->timestamps();
         });

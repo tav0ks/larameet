@@ -36,14 +36,15 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 
-    protected static function boot(){
+    protected static function boot()
+    {
         parent::boot();
 
-        static::creating(function($model){
-            if(empty($model->uuid) && $model->is_participant == 1){
+        static::creating(function ($model) {
+            if (empty($model->uuid) || $model->is_participant == 1) {
                 $uuid = Str::uuid();
-                $model->uuid= $uuid;
-                $model->password=  $uuid;
+                $model->uuid = $uuid;
+                $model->password =  $uuid;
             }
         });
     }

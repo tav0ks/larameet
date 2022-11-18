@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User\Meet\Horario;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\Meet\HorarioRequest;
-use App\Models\{Meet, User, Topic, Horario};
+use App\Models\{Meet, Topic, Horario, User};
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -17,11 +17,14 @@ class HorarioController extends Controller
         $meet = Meet::find($id);
         $meets = Meet::all();
 
+        $participants = User::where('meet_id', $meet->id)->where('name','!=','')->get();
         $user = User::find(Auth::id());
         $horarios = Horario::where('meet_id', $meet->id)->get();
+        $pauta = Topic::where('meet_id', $meet->id)->get();
 
 
         return view('user.meets.meet', compact('user','meet', 'meets', 'horarios',));
+        return view('user.meets.meet', compact('meet', 'meets', 'horarios', 'tamanho', 'pauta', 'participants'));
     }
 
     public function store(HorarioRequest $request, $id)
