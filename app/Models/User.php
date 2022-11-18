@@ -25,7 +25,7 @@ class User extends Authenticatable
     ];
 
     //relationships
-    public function meet()
+    public function meets()
     {
         return $this->HasMany(Meet::class);
     }

@@ -15,6 +15,8 @@ class Horario extends Model
         'meet_date',
         'meet_start',
         'votes',
+        'day',
+        'month',
         'meet_id'
     ];
 

@@ -14,7 +14,8 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ URL::asset('css/owl.carousel.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('css/owl.theme.default.min.css') }}" />
 </head>
 
 <body id="page-top">
@@ -37,10 +38,15 @@
             <hr class="sidebar-divider my-0">
 
             <div class="sidebar-brand d-flex align-items-center justify-content-center">
-                Meets
+                <li class="nav-item" style="margin-left: 70px;">
+                    <a class="nav-link" href="{{ route('user.meets.index') }}">
+                        <i class="fas fa-fw fa-calendar-alt" style="font-size: 20px;"></i>
+                        <span style="font-size: 16px;"> Meets </span>
+                    </a>
+                </li>
             </div>
 
-            @foreach ($meets as $meet)
+            {{-- @foreach ($meets as $meet)
                 @if ($meet->user_id == Auth::id())
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('horarios.index', $meet->id) }}">
@@ -55,7 +61,7 @@
                     <i class="fa-solid fa-plus"></i>
                     Novo Meet
                 </a>
-            </li>
+            </li> --}}
         </ul>
         <!-- End of Sidebar -->
 
@@ -166,6 +172,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
 
 </body>
 

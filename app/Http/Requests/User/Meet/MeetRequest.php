@@ -14,19 +14,8 @@ class MeetRequest extends FormRequest
     public function rules()
     {
         return [
-            'meet.name' => 'required',
-            'meet.duration' => [
-                'required',
-                'date_format:H:i'
-            ],
-            'horario.meet_date' => [
-                'required',
-                'date_format:d/m/Y'
-            ],
-            'horario.meet_start' => [
-                'required',
-                'date_format:H:i'
-            ]
+            'name' => ['required'],
+            'duration' => ['required', 'date_format:H:i']
         ];
     }
 }

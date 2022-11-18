@@ -13,6 +13,8 @@ return new class extends Migration
             $table->dateTime('meet_date');
             $table->dateTime('meet_start');
             $table->integer('votes')->default(0);
+            $table->string('day')->nullable();
+            $table->string('month')->nullable();
             $table->unsignedBigInteger('meet_id');
             $table->timestamps();
             $table->softDeletes();

@@ -23,14 +23,9 @@ class Meet extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function horario()
+    public function horarios()
     {
         return $this->hasMany(Horario::class);
-    }
-
-    public function participant()
-    {
-        return $this->hasMany(Participant::class);
     }
 
     public function topics()
