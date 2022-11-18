@@ -2,9 +2,8 @@
 
 namespace App\Mail;
 
-use App\Models\Participant;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -13,10 +12,10 @@ class ConfimacaoParticipant extends Mailable
     use Queueable, SerializesModels;
 
     /**
-     * Instance of participant
-     * 
-     * 
-     * @var \App\Models\Participant
+     * Instance of user
+     *
+     *
+     * @var \App\Models\User
      */
 
     protected $participant;
@@ -26,7 +25,7 @@ class ConfimacaoParticipant extends Mailable
      *
      * @return void
      */
-    public function __construct(Participant $participant)
+    public function __construct(User $participant)
     {
         $this->participant = $participant;
     }
@@ -44,5 +43,5 @@ class ConfimacaoParticipant extends Mailable
             'uuid' => $this->participant->uuid
         ]);
     }
-    
+
 }

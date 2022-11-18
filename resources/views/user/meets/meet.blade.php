@@ -1,5 +1,5 @@
 @extends('layouts.panel')
-
+@section('title', $meet->name)
 @section('content')
     @if (session()->has('success'))
         <div class="alert alert-success">
@@ -31,10 +31,9 @@
                     Adicionar Participante
                 </button>
 
-                {{-- <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#form-topic"
-                    aria-expanded="false" aria-controls="form-topic">
+                <a class="btn btn-primary" type="button" href="{{ route('topic.edit', $meet->id)}}">
                     Adicionar Tópico
-                </button> --}}
+                </a>
             </div>
         </div>
         <div class="card-body">
@@ -88,7 +87,7 @@
                 <hr>
                 <form class="form" action="{{ route('topic.store', $meet->id) }}" method="post">
                     @csrf
-                    <input type="text" name="topico" class="form-control mb-2" placeholder="Tópico">
+                    <input type="text" name="pauta" class="form-control mb-2" placeholder="Tópico">
                     <button class="btn btn-primary btn-user btn-block" type="submit">Adicionar</button>
                 </form>
             </div>
@@ -109,6 +108,7 @@
                 <form class="form" action="{{ route('participant.store', $meet->id) }}" method="post">
                     <div class="modal-body">
                         @csrf
+                        <input type="hidden" name="is_participant" value="1">
                         <div class="form-group">
                             <input type="email" name="email"
                                 class="form-control form-control-user {{ $errors->has('email') ? ' is-invalid' : '' }}"

@@ -10,7 +10,7 @@ class Topic extends Model
     use HasFactory;
 
     protected $fillable = [
-        'topico',
+        'pauta',
         'meet_id'
     ];
 

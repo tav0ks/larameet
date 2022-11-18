@@ -28,11 +28,6 @@ class Meet extends Model
         return $this->hasMany(Horario::class);
     }
 
-    public function participant()
-    {
-        return $this->hasMany(Participant::class);
-    }
-
     public function topics()
     {
         return $this->hasMany(Topic::class);

@@ -4,16 +4,12 @@ namespace App\Http\Controllers\User\Meet;
 
 use App\Models\{
     Meet,
-    Horario,
-    Participant,
-    Topic,
-    User
+    Topic
 };
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\User\Meet\{
-    MeetRequest,
-    HorarioRequest
+    MeetRequest
 };
 
 use Illuminate\Support\Facades\DB;
@@ -50,7 +46,11 @@ class MeetController extends Controller
             $meet = Meet::create($requestData['meet']);
 
             $meet->horario()->create($requestData['horario']);
-
+            // $participants = User::where
+            Topic::create([
+                'pauta' => '', //TODO terminar a entrada padrão da 'folha'
+                'meet_id' => $meet->id,
+            ]);
             DB::commit();
 
             return redirect()

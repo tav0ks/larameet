@@ -52,14 +52,14 @@ class LoginController extends Controller
 
         // dd(Auth::attempt($credentials));
         if (Auth::attempt($credentials)) {
-            
+
             if ($user->name == null || $user->name == "") {
-                
+
                 return redirect()->route('participant.edit', $user->uuid);
             }
 
             return redirect()
-                ->route('horario.meet', $user->meet_id);
+                ->route('horarios.index', $user->meet_id);
         }
 
         return redirect()
