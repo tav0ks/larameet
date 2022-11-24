@@ -37,8 +37,8 @@
                             <form action="{{ route('participant.update', $uuid) }}" method="POST" class="user">
                                 @method('PUT')
                                 @csrf
-                                <div class="form-group row">
-                                    <div class="col-md-6 mb-3">
+                                <div class="form row">
+                                    <div class="col-md mb-3">
                                         <input type="text" name="name"
                                             class="form-control form-control-user {{ $errors->has('name') ? ' is-invalid' : '' }}"
                                             placeholder="Nome">
