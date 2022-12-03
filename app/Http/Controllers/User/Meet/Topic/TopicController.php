@@ -41,8 +41,11 @@ class TopicController extends Controller
     public function print($id)
     {
         $pauta = Topic::where('meet_id', $id)->first();
+        $meet = Meet::find($id);
+        $user = User::find($meet->user_id);
+        $participants = User::where('meet_id', $id);
         $dompdf = new Dompdf();
-        $dompdf->loadHtml($pauta->pauta);
+        $dompdf->loadHtml(view('user.print.renderPrint'),compact('pauta','meet','participants', 'user'));
         $dompdf->setPaper('A4','portrait');
         $dompdf->render();
         $dompdf->stream();
