@@ -10,6 +10,6 @@
 </head>
 <body>
     <div class="trix-content"></div>
-    {!! $pauta->pauta !!}
+    {{-- {!! $pauta->pauta !!} --}}
 </body>
 </html>

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\User\Meet\Participant;
 
 use App\Http\Controllers\Controller;
-use App\Models\Meet;
-use App\Models\User;
+use App\Models\{Meet, User, Vote};
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ParticipantController extends Controller
 {
@@ -26,6 +26,16 @@ class ParticipantController extends Controller
                 'meet_id' => $request->meet_id,
                 'is_participant' => $request->is_participant
             ]);
+
+            $horarios = $meet->horarios;
+
+            foreach($horarios as $horario){
+                $vote = Vote::create([
+                    'user_id' => $participant->id,
+                    'horario_id' => $horario->id,
+                    'meet_id' => $meet->id
+                ]);
+            }
 
             // Mail::send(new ConfirmacaoParticipant($participant));
             DB::commit();

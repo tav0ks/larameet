@@ -38,8 +38,6 @@ class LoginController extends Controller
         return redirect()->route('auth.login.create');
     }
 
-
-
     public function uuidStore(Request $request)
     {
         // dd($request);

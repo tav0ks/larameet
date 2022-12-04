@@ -33,6 +33,7 @@
             <div class="col-9">
                 <div class="card" style="width: 100%; height: 100%;">
                     <div class="card-body">
+                        @if($meets->count() > 4)
                         <div class="nav-buttons d-flex justify-content-end" style="margin-bottom:20px">
                             <button onclick="prev()" class="btn btn-primary" type="button"
                             aria-expanded="false" aria-controls="form-horario">
@@ -43,6 +44,7 @@
                                 <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </div>
+                        @endif
                         @if($meets->count() > 0)
                             <div class="owl-carousel owl-theme">
                                 @foreach($meets as $meet)
@@ -86,32 +88,6 @@
         </div>
     </div>
 </div>
-
-{{-- MODAL EXCLUIR MEET
-<div class="modal fade" id="deleteMeetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font-weight-bold text-primary">Deletar Participante</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form class="form" action="" method="post">
-                <div class="modal-body">
-                    @csrf
-                    <div class="form-group">
-                        <h5>deseja excluir o meet {{ $meet->name}}?</h5>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger">Deletar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> --}}
 
 <div class="modal fade" id="deleteMeetModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">

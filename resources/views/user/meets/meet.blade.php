@@ -54,7 +54,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-bold text-primary">Adicionar Horário</h5>
+                    <div class="d-flex flex-column">
+                        <h5 class="modal-title font-weight-bold text-primary">Adicionar Horário</h5>
+                        <span>(a data deve ser posterior a hoje)</span>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -71,7 +74,7 @@
                         <div class="form-group" style="margin-top: 10px;">
                             <input type="text" name="meet_start"
                                 class="form-control date {{ $errors->has('meet_start') ? ' is-invalid' : '' }}"
-                                placeholder="Início" value="{{ old('meet_start') }}" data-mask="00:00">
+                                placeholder="Início (Horas e Minutos)" value="{{ old('meet_start') }}" data-mask="00:00">
                             <div class="invalid-feedback">{{ $errors->first('meet_start') }}</div>
                         </div>
                     </div>

@@ -9,7 +9,8 @@ use App\Http\Controllers\User\{
     Meet\MeetController,
     Meet\Participant\ParticipantController,
     Meet\Topic\TopicController,
-    Meet\Horario\HorarioController
+    Meet\Horario\HorarioController,
+    Meet\Horario\Vote\VoteController
 };
 
 use Illuminate\Support\Facades\Route;
@@ -47,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('getBasicData');
     });
 
-    Route::group(['prefix' => 'meet', 'as' => 'horarios.'], function () {
+    Route::group(['prefix' => '/meet', 'as' => 'horarios.'], function () {
 
         Route::get('{id}/horarios', [HorarioController::class, 'index'])
             ->name('index');
@@ -59,12 +60,20 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('edit');
         Route::put('{horario}/update', [HorarioController::class, 'update'])
             ->name('update');
+        Route::get('/{horario}/delete', [HorarioController::class, 'destroy'])
+            ->name('destroy');
+        Route::get('/{horario}/getBasicData', [HorarioController::class, 'getBasicData'])
+            ->name('getBasicData');
     });
 
     Route::group(['as' => 'participant.'], function () {
         Route::post('meet/{id}/participant', [ParticipantController::class, 'store'])->name('store');
         Route::put('meet/participant{uuid}', [ParticipantController::class, 'update'])->name('update');
         Route::get('participant/edit/{uuid}', [ParticipantController::class, 'edit'])->name('edit');
+    });
+
+    Route::group(['as' => 'vote.'], function () {
+        Route::put('{vote}/update', [VoteController::class, 'update'])->name('update');
     });
 
     Route::get('{id}/meet/edit/topic', [TopicController::class, 'edit'])->name('topic.edit');

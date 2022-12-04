@@ -33,6 +33,11 @@ class Meet extends Model
         return $this->hasMany(Topic::class);
     }
 
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
     //accessors
     public function getDurationFormattedAttribute()
     {

@@ -26,6 +26,11 @@ class Horario extends Model
         return $this->belongsTo(Meet::class);
     }
 
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
     //mutators
     public function setMeetDateAttribute($value)
     {

@@ -30,6 +30,11 @@ class User extends Authenticatable
         return $this->HasMany(Meet::class);
     }
 
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
     //mutators
     public function setPasswordAttribute($value)
     {
@@ -41,10 +46,10 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function ($model) {
-            if (empty($model->uuid) || $model->is_participant == 1) {
+            if (empty($model->uuid) && $model->is_participant == 1) {
                 $uuid = Str::uuid();
                 $model->uuid = $uuid;
-                $model->password =  $uuid;
+                $model->password = $uuid;
             }
         });
     }

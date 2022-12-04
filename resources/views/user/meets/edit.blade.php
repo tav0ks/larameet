@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="form-group">
-                        <label for="name">Duração</label>
+                        <label for="name">Duração (Horas e Minutos)</label>
                         <input type="text" name="duration"
                             class="form-control date {{ $errors->has('duration') ? ' is-invalid' : '' }}"
                             value="{{ $meet->duration_formatted }}" data-mask="00:00">

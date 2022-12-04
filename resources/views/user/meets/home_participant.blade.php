@@ -38,7 +38,7 @@
                                 @method('PUT')
                                 @csrf
                                 <div class="form-group row">
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-12 mb-3">
                                         <input type="text" name="name"
                                             class="form-control form-control-user {{ $errors->has('name') ? ' is-invalid' : '' }}"
                                             placeholder="Nome">

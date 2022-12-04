@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User\Meet\Horario;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\Meet\HorarioRequest;
-use App\Models\{Meet, Topic, Horario, User};
+use App\Models\{Meet, Topic, Horario, User, Vote};
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -20,11 +20,45 @@ class HorarioController extends Controller
         $participants = User::where('meet_id', $meet->id)->where('name','!=','')->get();
         $user = User::find(Auth::id());
         $horarios = Horario::where('meet_id', $meet->id)->get();
-        $pauta = Topic::where('meet_id', $meet->id)->get();
 
 
-        return view('user.meets.meet', compact('user','meet', 'meets', 'horarios',));
-        return view('user.meets.meet', compact('meet', 'meets', 'horarios', 'tamanho', 'pauta', 'participants'));
+        if($user->is_participant != 0){
+            $votes = Vote::where('user_id', $user->id)->get();
+        } else {
+            $votes = Vote::where('user_id', $user->id)->where('meet_id', $meet->id)->get();
+        }
+
+        foreach ( $horarios as $horario ){
+            $votes_to_count = Vote::where('horario_id', $horario->id)->get();
+            $value = 0;
+            foreach ( $votes_to_count as $vote ){
+                $value = $value + intval($vote->value);
+            }
+            $horario->update([
+                'votes' => $value
+            ]);
+        }
+
+
+        if($horarios->count() > 0){
+            $most_voted = $horarios->sortByDesc('votes')->first();
+            if($horarios->count() > 1){
+                $runner_up = $horarios->sortBy('votes')->skip(1)->first();
+
+                if($most_voted->votes == $runner_up->votes) {
+
+                    $most_voted_list = Horario::where('votes', $most_voted->votes)->where('meet_id', $meet->id)->pluck('id');
+
+                    // dd($most_voted_list);
+
+                    return view('user.meets.meet', compact('user','meet', 'meets', 'horarios', 'participants', 'votes', 'most_voted_list'));
+                }
+            }
+
+            return view('user.meets.meet', compact('user','meet', 'meets', 'horarios', 'participants', 'votes', 'most_voted'));
+        }
+
+        return view('user.meets.meet', compact('user','meet', 'meets', 'horarios', 'participants', 'votes'));
     }
 
     public function store(HorarioRequest $request, $id)
@@ -35,6 +69,21 @@ class HorarioController extends Controller
             $request->request->add(['meet_id' => $meet->id]);
             $requestData = $request->all();
             $horario = Horario::create($requestData);
+            $participants = User::where('meet_id', $meet->id)->where('name','!=','')->get();
+
+            $vote = Vote::create([
+                'user_id' =>  Auth::user()->id,
+                'horario_id' => $horario->id,
+                'meet_id' => $meet->id
+            ]);
+
+            foreach ($participants as $participant) {
+                $vote = Vote::create([
+                    'user_id' => $participant->id,
+                    'horario_id' => $horario->id,
+                    'meet_id' => $meet->id
+                ]);
+            }
 
             $date = explode(' ',$horario->meet_date);
             $day = jddayofweek((date('w', strtotime($date[0])) - 1), 1);
@@ -133,5 +182,32 @@ class HorarioController extends Controller
             DB::rollBack();
             return 'Mensagem: ' . $exception->getMessage();
         }
+    }
+
+    public function destroy(Horario $horario)
+    {
+        try {
+
+            $meet = $horario->meet();
+            $meets = Meet::all();
+            $horario->delete();
+            $user = User::find(Auth::id());
+
+            return redirect()
+                ->route('user.meets.meet', compact('user', 'meet', 'meets', 'horarios'))
+                ->with('success', 'Meet '. $horario->name .' deletado com sucesso!');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return 'Mensagem: ' . $exception->getMessage();
+        }
+    }
+
+    public function getBasicData(Horario $horario)
+    {
+        return [
+            'id' => $horario->id,
+            'meet_date' => $horario->meet_date_formatted,
+            'meet_start' => $horario->meet_start_formatted
+        ];
     }
 }
