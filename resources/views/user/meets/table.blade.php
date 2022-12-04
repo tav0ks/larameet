@@ -67,20 +67,6 @@
                                     <div class="card border-warning" style="width: 100%; height: 100%;">
                                         <div class="card-header border-warning">
                                             <span style="color: #ffc107;">Estão empatados!</span>
-                                            @if($user->is_participant == 0)
-                                                <div class="form-group">
-                                                    <a style="margin-left:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-trash"></i>
-                                                        </span>
-                                                    </a>
-                                                    <a  href="{{ route('horarios.edit', $horario->id) }}" style="margin-left:5px;"  class="btn btn-primary btn-icon-split">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-pen"></i>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                            @endif
                                         </div>
                                         <div class="card-body">
                                             <div class="flex-column" style="display: flex;
@@ -131,26 +117,26 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if($user->is_participant == 0)
+                                            <div class="card-footer border-warning">
+                                                <a style="margin-right:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
+                                                    <span class="icon text-white-50" style="width:40px !important;">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                </a>
+                                                <a  href="{{ route('horarios.edit', $horario->id) }}" class="btn btn-primary btn-icon-split">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-pen"></i>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endif
                                 @if(isset($most_voted) && ($most_voted->id == $horario->id))
                                     <div class="card border-success" style="width: 100%; height: 100%;">
                                         <div class="card-header border-success">
                                             <span style="color: #1cc88a;">Tem mais votos!</span>
-                                            @if($user->is_participant == 0)
-                                                <div class="form-group">
-                                                    <a style="margin-left:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-trash"></i>
-                                                        </span>
-                                                    </a>
-                                                    <a  href="{{ route('horarios.edit', $horario->id) }}" style="margin-left:5px;"  class="btn btn-primary btn-icon-split">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-pen"></i>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                            @endif
                                         </div>
                                         <div class="card-body">
                                             <div class="flex-column" style="display: flex;
@@ -201,25 +187,25 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if($user->is_participant == 0)
+                                            <div class="card-footer border-success">
+                                                <a style="margin-right:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
+                                                    <span class="icon text-white-50" style="width:40px !important;">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                </a>
+                                                <a  href="{{ route('horarios.edit', $horario->id) }}" class="btn btn-primary btn-icon-split">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-pen"></i>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endif
                                 @if((isset($most_voted) && ($most_voted->id != $horario->id)) || (isset($most_voted_list) && !in_array($horario->id, $most_voted_list->toArray())))
                                     <div class="card" style="width: 100%; height: 100%;">
                                         <div class="card-header" style="height: 45px !important;">
-                                            @if($user->is_participant == 0)
-                                                <div class="form-group">
-                                                    <a style="margin-left:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-trash"></i>
-                                                        </span>
-                                                    </a>
-                                                    <a  href="{{ route('horarios.edit', $horario->id) }}" style="margin-left:5px;"  class="btn btn-primary btn-icon-split">
-                                                        <span class="icon text-white-50">
-                                                            <i class="fas fa-pen"></i>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                            @endif
                                         </div>
                                         <div class="card-body">
                                             <div class="flex-column" style="display: flex;
@@ -270,6 +256,20 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if($user->is_participant == 0)
+                                            <div class="card-footer">
+                                                <a style="margin-right:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
+                                                    <span class="icon text-white-50" style="width:40px !important;">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                </a>
+                                                <a  href="{{ route('horarios.edit', $horario->id) }}" class="btn btn-primary btn-icon-split">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-pen"></i>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endif
                             @endforeach
