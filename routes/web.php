@@ -76,8 +76,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{vote}/update', [VoteController::class, 'update'])->name('update');
     });
 
-    Route::get('{id}/meet/edit/topic', [TopicController::class, 'edit'])->name('topic.edit');
+    Route::get('{id}/meet/topic/edit', [TopicController::class, 'edit'])->name('topic.edit');
     Route::put('{id}/meet/topic', [TopicController::class, 'update'])->name('topic.update');
     Route::get('{id}/meet/topic', [TopicController::class, 'print'])->name('topic.print');
+});
 
+Route::get('/mail', function(){
+    return view('user.mails.participants');
 });

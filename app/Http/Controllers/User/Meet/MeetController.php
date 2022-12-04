@@ -15,6 +15,7 @@ use App\Http\Requests\User\Meet\{
     MeetRequest,
     HorarioRequest
 };
+use Dompdf\Dompdf;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -117,4 +118,5 @@ class MeetController extends Controller
             'name' => $meet->name
         ];
     }
+
 }
