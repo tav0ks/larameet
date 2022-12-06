@@ -5,6 +5,14 @@
 
 Este projeto é um sistema que ira possibilitar a organização de horários com maior eficácia em qualquer empresa, time ou onde quer que ele seja usado, depois da criação do usuário e do chamado meet, você poderá adicionar participants para que, através de diversos horários, se escolha um que melhor se encaixe a todos.
 
+### Para utilização
+Não esquecer:
+- Dar composer update
+- Copiar o .env.example e criar o .env
+- php artisan key:generate
+- Colocar o nome do banco de dados que será utilizado e usuário e senha
+- php artisan migrate
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
