@@ -1,3 +1,10 @@
+# LaraMeet
+## Projeto desenvolvido para projeto integrado 2
+
+### Sobre o projeto:
+
+Este projeto é um sistema que ira possibilitar a organização de horários com maior eficácia em qualquer empresa, time ou onde quer que ele seja usado, depois da criação do usuário e do chamado meet, você poderá adicionar participants para que, através de diversos horários, se escolha um que melhor se encaixe a todos.
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">

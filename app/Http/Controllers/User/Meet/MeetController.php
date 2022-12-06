@@ -98,7 +98,7 @@ class MeetController extends Controller
         try {
             $meet->horarios()->delete();
             $meet->delete();
-
+            $participants = User::where('is_participant', 1)->where('meet_id',$meet->id)->delete();
             $user = User::find(Auth::id());
             $meets = Meet::query()->where('user_id', $user->id)->get();
 
