@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Meet\Participant;
 
+use App\Mail\ConfimacaoParticipant;
 use App\Http\Controllers\Controller;
 use App\Models\{Meet, User, Vote};
 use Exception;
