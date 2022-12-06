@@ -7,10 +7,30 @@
 
 @section('content')
     <div>
-        {{-- @dd($most_voted) --}}
         <div class="row">
-            <div class="col">
-                <h4>Editor de pauta</h4>
+            <div class="col-12 mb-2" style="padding-left: 0 !important;">
+                <div class="col-12 d-flex flex-column">
+                    <h4>Editor de pauta</h4>
+                    <h5>Beleza! o horário escolhido para o Meet foi: </h5>
+                    @php
+                        $day_number = explode(' ', $most_voted->meet_date);
+                        $day_number = explode('-', $day_number[0]);
+                        $day_number = $day_number[2];
+                    @endphp
+                    <div>
+                        <h5>Dia da semana: {{ $most_voted->day }}</h5>
+                    </div>
+                    <div>
+                        <h5>Dia: {{ $day_number }}</h5>
+                    </div>
+                    <div>
+                        <h5>Mês: {{ $most_voted->month }}</h5>
+                    </div>
+                    <div>
+                        <h5>Início: {{ $most_voted->meet_start_formatted }}</h5>
+                    </div>
+                    <h5>Agora você deve pode as pautas que serão discutidas no Meet: </h5>
+                </div>
             </div>
         </div>
     </div>
@@ -24,7 +44,7 @@
                 <trix-editor class="trix-content" input="pauta"></trix-editor>
                 <div class="mt-2">
                     <button type="submit" class="btn btn-primary">Salvar</button>
-                    <a class="btn btn-success" target="_blank" href="{{ route('topic.print', $meet->id) }}">Gerar ATA</a>
+                    <a class="btn btn-success" target="_blank" href="{{ route('topic.print', [$meet->id, $most_voted]) }}">Gerar Ata</a>
                 </div>
             </form>
         </div>

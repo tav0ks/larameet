@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ConfirmacaoParticipant;
 
 class ParticipantController extends Controller
 {
@@ -37,7 +38,7 @@ class ParticipantController extends Controller
                 ]);
             }
 
-            // Mail::send(new ConfirmacaoParticipant($participant));
+            Mail::send(new ConfirmacaoParticipant($participant));
             DB::commit();
 
             return redirect()

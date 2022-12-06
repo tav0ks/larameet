@@ -36,6 +36,7 @@ class TopicController extends Controller
         $participants = User::where('meet_id', $meet->id)->where('name', '!=', '')->get();
         $pauta = Topic::where('meet_id', $id)->first();
         $most_voted = Vote::find($most_voted);
+        $most_voted = $most_voted->horario;
 
         return view('user.meets.pauta', compact('id', 'meet', 'meets', 'participants', 'pauta', 'most_voted'));
     }

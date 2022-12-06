@@ -14,12 +14,18 @@
                 Adicionar Participante
             </button>
 
-            <a class="btn btn-primary mr-2" type="button" href="{{ route('topic.edit', [$meet->id,
-            // $most_voted
-            ]) }}">
-                <i class="fas fa-pen"></i>
-                Pauta
-            </a>
+            @if(isset($most_voted))
+                <a class="btn btn-primary mr-2" type="button" href="{{ route('topic.edit',[$meet->id, $most_voted]) }}">
+                    <i class="fas fa-pen"></i>
+                    Pauta
+                </a>
+            @endif
+            @if(isset($most_voted_list))
+                <a class="btn btn-primary mr-2" type="button" data-toggle="modal" data-target="#choseHorarioModal">
+                    <i class="fas fa-pen"></i>
+                    Pauta
+                </a>
+            @endif
         </div>
     @endif
 </div>
@@ -64,12 +70,12 @@
                                     $day_number = explode(' ', $horario->meet_date);
                                     $day_number = explode('-', $day_number[0]);
                                     $day_number = $day_number[2];
-                                    $vote = $votes->where('horario_id', $horario->id)->first();
+                                    $vote = $votes->where('horario_id', $horario->id)->first()
                                 @endphp
                                 @if(isset($most_voted_list) && (in_array($horario->id, $most_voted_list->toArray())))
                                     <div class="card border-warning" style="width: 100%; height: 100%;">
                                         <div class="card-header border-warning">
-                                            <span style="color: #ffc107;">Estão empatados!</span>
+                                            <span style="color: #ffc107;">Empatados!</span>
                                         </div>
                                         <div class="card-body">
                                             <div class="flex-column" style="display: flex;
@@ -136,76 +142,78 @@
                                         @endif
                                     </div>
                                 @endif
-                                {{-- @if(isset($most_voted) && ($most_voted->id == $horario->id)) --}}
-                                    <div class="card border-success" style="width: 100%; height: 100%;">
-                                        <div class="card-header border-success">
-                                            <span style="color: #1cc88a;">Tem mais votos!</span>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="flex-column" style="display: flex;
-                                            align-items: center;
-                                            justify-content: center;">
-                                                <div>
-                                                    <h5>{{ $horario->day }}</h5>
-                                                </div>
-                                                <div>
-                                                    <h3>{{ $day_number }}</h3>
-                                                </div>
-                                                <div>
-                                                    <h5>{{ $horario->month }}</h5>
-                                                </div>
-                                                <div>
-                                                    <h5>Inicio: {{ $horario->meet_start_formatted }}</h5>
-                                                </div>
-                                                <div class="vote-buttons">
-                                                    @if($vote->value == '1')
-                                                    <form action="{{ route('vote.update', $vote->id) }}"method="POST">
-                                                        @method('PUT')
-                                                        @csrf
-                                                        <div id="1" class="vote custom-control custom-checkbox small">
-                                                            <input type="hidden" name="value" value="{{ $vote->value }}">
-                                                            <input type="hidden" name="meet_id" value="{{ $meet->id }}">
-                                                            <button type="submit" class="btn btn-success btn-circle">
-                                                                <i class="fas fa-check"></i>
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                    @endif
-                                                    @if($vote->value == '0')
-                                                    <form action="{{ route('vote.update', $vote->id) }}" method="POST">
-                                                        @method('PUT')
-                                                        @csrf
-                                                        <div id="0" class="vote custom-control custom-checkbox small">
-                                                            <input type="hidden" name="value" value="{{ $vote->value }}">
-                                                            <input type="hidden" name="meet_id" value="{{ $meet->id }}">
-                                                            <button type="submit" class="btn btn-danger btn-circle">
-                                                                <i class="fas fa-x"></i>
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                    @endif
-                                                </div>
-                                                <div>
-                                                    <h5>Votos: {{ $horario->votes }}</h5>
+                                @if(isset($most_voted))
+                                    @if(($most_voted->id == $horario->id))
+                                        <div class="card border-success" style="width: 100%; height: 100%;">
+                                            <div class="card-header border-success">
+                                                <span style="color: #1cc88a;">Tem mais votos!</span>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="flex-column" style="display: flex;
+                                                align-items: center;
+                                                justify-content: center;">
+                                                    <div>
+                                                        <h5>{{ $horario->day }}</h5>
+                                                    </div>
+                                                    <div>
+                                                        <h3>{{ $day_number }}</h3>
+                                                    </div>
+                                                    <div>
+                                                        <h5>{{ $horario->month }}</h5>
+                                                    </div>
+                                                    <div>
+                                                        <h5>Inicio: {{ $horario->meet_start_formatted }}</h5>
+                                                    </div>
+                                                    <div class="vote-buttons">
+                                                        @if($vote->value == '1')
+                                                        <form action="{{ route('vote.update', $vote->id) }}"method="POST">
+                                                            @method('PUT')
+                                                            @csrf
+                                                            <div id="1" class="vote custom-control custom-checkbox small">
+                                                                <input type="hidden" name="value" value="{{ $vote->value }}">
+                                                                <input type="hidden" name="meet_id" value="{{ $meet->id }}">
+                                                                <button type="submit" class="btn btn-success btn-circle">
+                                                                    <i class="fas fa-check"></i>
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                        @endif
+                                                        @if($vote->value == '0')
+                                                        <form action="{{ route('vote.update', $vote->id) }}" method="POST">
+                                                            @method('PUT')
+                                                            @csrf
+                                                            <div id="0" class="vote custom-control custom-checkbox small">
+                                                                <input type="hidden" name="value" value="{{ $vote->value }}">
+                                                                <input type="hidden" name="meet_id" value="{{ $meet->id }}">
+                                                                <button type="submit" class="btn btn-danger btn-circle">
+                                                                    <i class="fas fa-x"></i>
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                        @endif
+                                                    </div>
+                                                    <div>
+                                                        <h5>Votos: {{ $horario->votes }}</h5>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            @if($user->is_participant == 0)
+                                                <div class="card-footer border-success">
+                                                    <a style="margin-right:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
+                                                        <span class="icon text-white-50" style="width:40px !important;">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a  href="{{ route('horarios.edit', $horario->id) }}" class="btn btn-primary btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-pen"></i>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            @endif
                                         </div>
-                                        @if($user->is_participant == 0)
-                                            <div class="card-footer border-success">
-                                                <a style="margin-right:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
-                                                    <span class="icon text-white-50" style="width:40px !important;">
-                                                        <i class="fas fa-trash"></i>
-                                                    </span>
-                                                </a>
-                                                <a  href="{{ route('horarios.edit', $horario->id) }}" class="btn btn-primary btn-icon-split">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-pen"></i>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        @endif
-                                    </div>
-                                {{-- @endif --}}
+                                    @endif
+                                @endif
                                 @if((isset($most_voted) && ($most_voted->id != $horario->id)) || (isset($most_voted_list) && !in_array($horario->id, $most_voted_list->toArray())))
                                     <div class="card" style="width: 100%; height: 100%;">
                                         <div class="card-header" style="height: 45px !important;">
@@ -290,6 +298,63 @@
     </div>
 </div>
 
+<div class="modal fade" id="choseHorarioModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body py-0">
+                <div class="text-center">
+                    <h5 class="mt-3 mb-0">Houve um empate de votos!</h5>
+                    <h5 class="mt-3 mb-0">Escolha o horário em que o meet ocorrerá:</h5>
+                    <br>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Dia da Semana</th>
+                            <th scope="col">Dia</th>
+                            <th scope="col">Mes</th>
+                            <th scope="col">Inicio</th>
+                            <th scope="col">Escolher</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @if(isset($most_voted_list))
+                                @foreach($most_voted_list as $horario_id)
+                                    @php
+                                        $horario = $horarios->where('id', $horario_id)->first();
+                                        $day_number = explode(' ', $horario->meet_date);
+                                        $day_number = explode('-', $day_number[0]);
+                                        $day_number = $day_number[2];
+                                        $most_voted = $horario->id;
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $horario->day }}</td>
+                                        <td>{{ $day_number }}</td>
+                                        <td>{{ $horario->month }}</td>
+                                        <td>{{ $horario->meet_start_formatted }}</td>
+                                        <td>
+                                            <a type="button" href="{{ route('topic.edit', [$meet->id, $horario->id]) }}"
+                                                class="btn bg-primary btn-shadow text-white d-flex align-items-center justify-content-center modal-confirm-button">
+                                                <span>Escolher</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn bg-secondary btn-shadow text-white modal-cancel-button" data-dismiss="modal">
+                    <span>Cancelar</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="deleteHorarioModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -360,6 +425,20 @@
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
 <script>
+    // function uncheckOthers(horario_id){
+    //     checks = document.getElementsByClassName('form-check-input');
+
+    //     for(const check of Array.from(checks)){
+    //         console.log(check.value);
+    //         console.log(horario_id);
+    //         if (check.checked && horario_id != check.value){
+    //             check.checked = true;
+    //         };
+    //         if (horario_id != check.value){
+    //             check.checked = false;
+    //         };
+    //     }
+    // }
     $(document).ready(function(){
         $(".owl-carousel").owlCarousel({
             margin: 10,
