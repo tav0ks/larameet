@@ -46,17 +46,12 @@ class TopicController extends Controller
         $pauta = Topic::where('meet_id', $id)->first();
         $meet = Meet::find($id);
         $user = User::find($meet->user_id);
-        // if(Auth::guard() == 'web'){
-        //     $user = User::find($meet->user_id);
-        // }
-        // else $user = Participant::where('meet_id',$meet->id)->get();
-
         $participants = User::where('meet_id', $id);
         $dompdf = new Dompdf();
         $dompdf->loadHtml(view(('user.print.renderPrint'),compact('pauta','meet','participants', 'user' ,'most_voted')));
         $dompdf->setPaper('A4','portrait');
         $dompdf->render();
         $dompdf->stream();
-        return view('user.print.print', compact('pauta')); //TODO arrumar print
+        return view('user.meets.pauta', compact('pauta'));
     }
 }

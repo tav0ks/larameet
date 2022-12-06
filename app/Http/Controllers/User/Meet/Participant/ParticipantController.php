@@ -39,7 +39,7 @@ class ParticipantController extends Controller
                 ]);
             }
 
-            Mail::send(new ConfirmacaoParticipant($participant));
+            Mail::send(new ConfirmacaoParticipant($participant)); //TODO não esquecer de ativar ou desativar quando necessário
             DB::commit();
 
             return redirect()

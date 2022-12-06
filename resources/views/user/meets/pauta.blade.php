@@ -11,7 +11,7 @@
             <div class="col-12 mb-2" style="padding-left: 0 !important;">
                 <div class="col-12 d-flex flex-column">
                     <h4>Editor de pauta</h4>
-                    <h5>Beleza! o horário escolhido para o Meet foi: </h5>
+                    <h5>Beleza! O horário escolhido para o Meet foi: </h5>
                     @php
                         $day_number = explode(' ', $most_voted->meet_date);
                         $day_number = explode('-', $day_number[0]);
@@ -29,7 +29,7 @@
                     <div>
                         <h5>Início: {{ $most_voted->meet_start_formatted }}</h5>
                     </div>
-                    <h5>Agora você deve pode as pautas que serão discutidas no Meet: </h5>
+                    <h5>Agora você pode incluir as pautas que serão discutidas no Meet: </h5>
                 </div>
             </div>
         </div>
