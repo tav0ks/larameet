@@ -43,7 +43,7 @@ class HorarioController extends Controller
         if($horarios->count() > 0){
             $most_voted = $horarios->sortByDesc('votes')->first();
             if($horarios->count() > 1){
-                $runner_up = $horarios->sortBy('votes')->skip(1)->first();
+                $runner_up = $horarios->sortByDesc('votes')->skip(1)->first();
 
                 if($most_voted->votes == $runner_up->votes) {
 

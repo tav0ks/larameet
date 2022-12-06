@@ -6,23 +6,31 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('participants', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->uuid('uuid');
+            $table->string('nome')->nullable();
             $table->string('email');
             $table->string('password');
-            $table->uuid('uuid')->nullable();
-            $table->unsignedBigInteger('meet_id')->nullable();
-            $table->boolean('is_participant')->default(0);
+            $table->unsignedBigInteger('meet_id');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('participants');
     }
 };

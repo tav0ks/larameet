@@ -34,8 +34,8 @@
             {{ $meet->name }}
         </h1>
         <br>
-        <br>
-        <h4>Duração: {{ $meet->duration }}</h4>
+        <h4>Duração: {{ $meet->duration_formatted }}</h4>
+        <h4>Dia escolhido: {{$most_voted->}}</h4>
         <h5>Responsável pelo meet: {{ $user->name }}</h5>
         <h5>Participantes:</h5>
         <ul>
@@ -46,8 +46,8 @@
             @endforeach
         </ul>
         <br><br>
-        <div class="trix-content">
-            {{ $pauta->pauta }}
+        <div class="trix-content ">
+            {!! $pauta->pauta !!}
         </div>
     </div>
 </body>

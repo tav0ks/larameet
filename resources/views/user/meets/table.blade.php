@@ -13,7 +13,10 @@
                 <i class="fa-solid fa-plus"></i>
                 Adicionar Participante
             </button>
-            <a class="btn btn-primary mr-2" type="button" href="{{ route('topic.edit', $meet->id) }}">
+
+            <a class="btn btn-primary mr-2" type="button" href="{{ route('topic.edit', [$meet->id,
+            // $most_voted
+            ]) }}">
                 <i class="fas fa-pen"></i>
                 Pauta
             </a>
@@ -133,7 +136,7 @@
                                         @endif
                                     </div>
                                 @endif
-                                @if(isset($most_voted) && ($most_voted->id == $horario->id))
+                                {{-- @if(isset($most_voted) && ($most_voted->id == $horario->id)) --}}
                                     <div class="card border-success" style="width: 100%; height: 100%;">
                                         <div class="card-header border-success">
                                             <span style="color: #1cc88a;">Tem mais votos!</span>
@@ -202,7 +205,7 @@
                                             </div>
                                         @endif
                                     </div>
-                                @endif
+                                {{-- @endif --}}
                                 @if((isset($most_voted) && ($most_voted->id != $horario->id)) || (isset($most_voted_list) && !in_array($horario->id, $most_voted_list->toArray())))
                                     <div class="card" style="width: 100%; height: 100%;">
                                         <div class="card-header" style="height: 45px !important;">

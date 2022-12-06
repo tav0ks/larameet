@@ -6,13 +6,28 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('topic.update', $meet->id) }}" method="post">
-        @csrf
-        @method('PUT')
-        <input type="hidden" name="pauta" id="pauta" value="{{ $pauta->pauta }}">
-        <trix-editor class="trix-content" input="pauta"></trix-editor>
-        <button type="submit" class="btn btn-primary">Salvar</button>
-    </form>
+    <div>
+        {{-- @dd($most_voted) --}}
+        <div class="row">
+            <div class="col">
+                <h4>Editor de pauta</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-12">
 
-    <a class="btn btn-success" target="_blank" href="{{ route('topic.print', $meet->id) }}">Imprimir a parada</a>
+            <form action="{{ route('topic.update', $meet->id) }}" method="post">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="pauta" id="pauta" value="{{ $pauta->pauta }}">
+                <trix-editor class="trix-content" input="pauta"></trix-editor>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a class="btn btn-success" target="_blank" href="{{ route('topic.print', $meet->id) }}">Gerar ATA</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
 @endsection
