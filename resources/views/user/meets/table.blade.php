@@ -91,7 +91,7 @@
                                                     <h5>{{ $horario->month }}</h5>
                                                 </div>
                                                 <div>
-                                                    <h5>Inicio: {{ $horario->meet_start_formatted }}</h5>
+                                                    <h5 style="text-align: center">Inicio: {{ $horario->meet_start_formatted }}</h5>
                                                 </div>
                                                 <div class="vote-buttons">
                                                     @if($vote->value == '1')
@@ -127,14 +127,14 @@
                                             </div>
                                         </div>
                                         @if($user->is_participant == 0)
-                                            <div class="card-footer border-warning">
+                                            <div class="card-footer card-footer-sm border-warning">
                                                 <a style="margin-right:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
-                                                    <span class="icon text-white-50" style="width:40px !important;">
+                                                    <span class="icon text-white-50 button-size button-size-sm">
                                                         <i class="fas fa-trash"></i>
                                                     </span>
                                                 </a>
                                                 <a  href="{{ route('horarios.edit', $horario->id) }}" class="btn btn-primary btn-icon-split">
-                                                    <span class="icon text-white-50">
+                                                    <span class="icon text-white-50 button-size button-size-sm">
                                                         <i class="fas fa-pen"></i>
                                                     </span>
                                                 </a>
@@ -146,7 +146,7 @@
                                     @if(($most_voted->id == $horario->id))
                                         <div class="card border-success" style="width: 100%; height: 100%;">
                                             <div class="card-header border-success">
-                                                <span style="color: #1cc88a;">Tem mais votos!</span>
+                                                <span style="color: #1cc88a;">Vencendo!</span>
                                             </div>
                                             <div class="card-body">
                                                 <div class="flex-column" style="display: flex;
@@ -161,7 +161,7 @@
                                                     <div>
                                                         <h5>{{ $horario->month }}</h5>
                                                     </div>
-                                                    <div>
+                                                    <div style="text-align: center">
                                                         <h5>Inicio: {{ $horario->meet_start_formatted }}</h5>
                                                     </div>
                                                     <div class="vote-buttons">
@@ -198,14 +198,14 @@
                                                 </div>
                                             </div>
                                             @if($user->is_participant == 0)
-                                                <div class="card-footer border-success">
+                                                <div class="card-footer card-footer-sm border-success">
                                                     <a style="margin-right:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
-                                                        <span class="icon text-white-50" style="width:40px !important;">
+                                                        <span class="icon text-white-50 button-size button-size-sm">
                                                             <i class="fas fa-trash"></i>
                                                         </span>
                                                     </a>
                                                     <a  href="{{ route('horarios.edit', $horario->id) }}" class="btn btn-primary btn-icon-split">
-                                                        <span class="icon text-white-50">
+                                                        <span class="icon text-white-50 button-size button-size-sm">
                                                             <i class="fas fa-pen"></i>
                                                         </span>
                                                     </a>
@@ -231,7 +231,7 @@
                                                 <div>
                                                     <h5>{{ $horario->month }}</h5>
                                                 </div>
-                                                <div>
+                                                <div style="text-align: center">
                                                     <h5>Inicio: {{ $horario->meet_start_formatted }}</h5>
                                                 </div>
                                                 <div class="vote-buttons">
@@ -268,14 +268,14 @@
                                             </div>
                                         </div>
                                         @if($user->is_participant == 0)
-                                            <div class="card-footer">
+                                            <div class="card-footer card-footer-sm">
                                                 <a style="margin-right:5px;" class="btn btn-danger btn-icon-split" onclick="deleteHorarioModal('{{ $horario->id }}');">
-                                                    <span class="icon text-white-50" style="width:40px !important;">
+                                                    <span class="icon text-white-50 button-size button-size-sm">
                                                         <i class="fas fa-trash"></i>
                                                     </span>
                                                 </a>
                                                 <a  href="{{ route('horarios.edit', $horario->id) }}" class="btn btn-primary btn-icon-split">
-                                                    <span class="icon text-white-50">
+                                                    <span class="icon text-white-50 button-size button-size-sm">
                                                         <i class="fas fa-pen"></i>
                                                     </span>
                                                 </a>
@@ -382,6 +382,18 @@
 </div>
 
 <style>
+    @media(max-width: 1500px) {
+        .button-size-sm{
+            width: 33px !important;
+        }
+        .card-footer-sm{
+            padding: 5px !important;
+        }
+    }
+    .button-size{
+        width: 36px;
+        padding: 10px;
+    }
     .card-header {
         padding: 10px !important;
     }
@@ -419,11 +431,7 @@
         margin-top: 25px;
     }
 </style>
-
-
-<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script>
     // function uncheckOthers(horario_id){
     //     checks = document.getElementsByClassName('form-check-input');
