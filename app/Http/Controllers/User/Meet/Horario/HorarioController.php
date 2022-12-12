@@ -17,7 +17,7 @@ class HorarioController extends Controller
         $meet = Meet::find($id);
         $meets = Meet::all();
 
-        $participants = User::where('meet_id', $meet->id)->where('name','!=','')->get();
+        $participants = User::where('meet_id', $meet->id)->get();
         $user = User::find(Auth::id());
         $horarios = Horario::where('meet_id', $meet->id)->get();
 

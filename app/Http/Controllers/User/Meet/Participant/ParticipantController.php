@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmacaoParticipant;
+use App\Mail\ReenvioToken;
+use Hamcrest\Type\IsObject;
+use stdClass;
 
 class ParticipantController extends Controller
 {
@@ -31,7 +34,7 @@ class ParticipantController extends Controller
 
             $horarios = $meet->horarios;
 
-            foreach($horarios as $horario){
+            foreach ($horarios as $horario) {
                 $vote = Vote::create([
                     'user_id' => $participant->id,
                     'horario_id' => $horario->id,
@@ -44,7 +47,6 @@ class ParticipantController extends Controller
 
             return redirect()
                 ->route('horarios.index', compact('id'));
-
         } catch (Exception $exception) {
             DB::rollBack();
             return 'Mensagem: ' . $exception->getMessage();
@@ -60,7 +62,7 @@ class ParticipantController extends Controller
     {
         DB::beginTransaction();
         try {
-            $participant = User::where('uuid',$uuid)->first();
+            $participant = User::where('uuid', $uuid)->first();
             $participant->update([
                 'name' => $request->name
             ]);
@@ -71,6 +73,17 @@ class ParticipantController extends Controller
         } catch (Exception $exception) {
             DB::rollBack();
             return 'Mensagem: ' . $exception->getMessage();
+        }
+    }
+
+    public function mail(Request $request, $id)
+    {
+
+        foreach ($request->key as $uuid) {
+            $participant = User::where('uuid', $uuid)->first();
+            Mail::send(new ReenvioToken($participant));
+            return redirect()
+                ->route('horarios.index', compact('id'));
         }
     }
 }

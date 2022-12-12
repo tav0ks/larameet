@@ -17,11 +17,19 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="form-group">
-                        <label for="name">Duração (Horas e Minutos)</label>
+                        <label for="duration">Duração (Horas e Minutos)</label>
                         <input type="text" name="duration"
                             class="form-control date {{ $errors->has('duration') ? ' is-invalid' : '' }}"
                             value="{{ old('meet.duration') }}" data-mask="00:00">
                         <div class="invalid-feedback">{{ $errors->first('duration') }}</div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label for="obs">Observações</label>
+                        <input type="text" name="obs" id="obs" class="form-control" placeholder="Use este campo para inserir dados adicionais do meet, como obs de encontro ou link da sala virtual" {{$errors->has('obs') ? ' is-invalid' : '' }}"
+                        value="{{ old('meet.obs') }}">
+                        <div class="invalid-feedback">{{ $errors->first('obs') }}</div>
                     </div>
                 </div>
             </div>

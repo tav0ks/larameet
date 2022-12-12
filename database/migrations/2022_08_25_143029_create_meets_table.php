@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->datetime('duration');
             $table->unsignedBigInteger('user_id');
+            $table->string('obs');
             $table->timestamps();
             $table->softDeletes();
 

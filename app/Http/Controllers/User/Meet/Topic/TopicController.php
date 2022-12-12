@@ -46,7 +46,7 @@ class TopicController extends Controller
         $pauta = Topic::where('meet_id', $id)->first();
         $meet = Meet::find($id);
         $user = User::find($meet->user_id);
-        $participants = User::where('meet_id', $id);
+        $participants = User::where('meet_id', $id)->get();
         $dompdf = new Dompdf();
         $dompdf->loadHtml(view(('user.print.renderPrint'),compact('pauta','meet','participants', 'user' ,'most_voted')));
         $dompdf->setPaper('A4','portrait');

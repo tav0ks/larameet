@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('destroy');
         Route::get('/{meet}/getBasicData', [MeetController::class, 'getBasicData'])
             ->name('getBasicData');
+        Route::get('{id}/mail/{most_voted}', [MeetController::class, 'mail'])->name('mail');
     });
 
     Route::group(['prefix' => '/meet', 'as' => 'horarios.'], function () {
@@ -70,6 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('meet/{id}/participant', [ParticipantController::class, 'store'])->name('store');
         Route::put('meet/participant{uuid}', [ParticipantController::class, 'update'])->name('update');
         Route::get('participant/edit/{uuid}', [ParticipantController::class, 'edit'])->name('edit');
+        Route::post('{meet}/participant/', [ParticipantController::class, 'mail'])->name('mail');
     });
 
     Route::group(['as' => 'vote.'], function () {

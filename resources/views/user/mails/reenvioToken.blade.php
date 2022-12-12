@@ -50,11 +50,11 @@
                             <hr>
                             <div class="text-center">
                                 <p>
-                                    Você foi chamado para participar da reunião {{ $meet->name }}
+                                    Foi reenviado o seu uuid para participar da reunião {{ $meet->name }}
                                 </p>
                                 <p>Insira seu código na área UUID. Ao entrar pela primeira vez será pedido que coloque
                                     um nome!</p>
-                                <p>Seu código para acesso será:</p>
+                                <p>Seu código para acesso é:</p>
                                 <p>{{ $uuid }}</p>
                             </div>
                             <div style="display: flex; justify-content: center; align-items: center;">
@@ -64,7 +64,6 @@
                                     </button>
                                 </a>
                             </div>
-
                         </div>
                     </div>
                 </div>

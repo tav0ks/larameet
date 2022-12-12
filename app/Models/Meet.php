@@ -14,7 +14,8 @@ class Meet extends Model
     protected $fillable = [
         'name',
         'duration',
-        'user_id'
+        'user_id',
+        'obs'
     ];
 
     //relationships

@@ -12,22 +12,8 @@
                 <div class="col-12 d-flex flex-column">
                     <h4>Editor de pauta</h4>
                     <h5>Beleza! O horário escolhido para o Meet foi: </h5>
-                    @php
-                        $day_number = explode(' ', $most_voted->meet_date);
-                        $day_number = explode('-', $day_number[0]);
-                        $day_number = $day_number[2];
-                    @endphp
                     <div>
-                        <h5>Dia da semana: {{ $most_voted->day }}</h5>
-                    </div>
-                    <div>
-                        <h5>Dia: {{ $day_number }}</h5>
-                    </div>
-                    <div>
-                        <h5>Mês: {{ $most_voted->month }}</h5>
-                    </div>
-                    <div>
-                        <h5>Início: {{ $most_voted->meet_start_formatted }}</h5>
+                        <h5>Dia escolhido: {{ $most_voted->meet_date_formatted }}</h5>
                     </div>
                     <h5>Agora você pode incluir as pautas que serão discutidas no Meet: </h5>
                 </div>
